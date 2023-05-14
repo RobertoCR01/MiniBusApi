@@ -13,23 +13,22 @@ namespace MiniBusApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IEnumerable<MiniBusDTO> GetMiniBuses()
         {
-            return MiniBusStore.miniBusLista;
+            return MiniBusStore.miniBusList;
 
         }
-
-        [HttpGet("{id:int}",Name ="GetMiniBus")]
+        [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-       // [ProducesResponseType(200,Type = typeof(MiniBusDTO))]
+        // [ProducesResponseType(200,Type = typeof(MiniBusDTO))]
         public ActionResult<MiniBusDTO> GetMiniBus(int id)
-        {   
+        {
             if (id == 0)
             {
                 return BadRequest();
             };
 
-            var miniBus = MiniBusStore.miniBusLista.FirstOrDefault(u => u.Id == id);
+            var miniBus = MiniBusStore.miniBusList.FirstOrDefault(u => u.Id == id);
 
             if (miniBus == null)
             {
@@ -45,6 +44,11 @@ namespace MiniBusApi.Controllers
 
         public ActionResult<MiniBusDTO> CreateMiniBus([FromBody] MiniBusDTO miniBusDTO)
         {
+            if(MiniBusStore.miniBusList.FirstOrDefault(u => u.Brand.ToLower() == miniBusDTO.Brand.ToLower()) != null)
+            {
+                ModelState.AddModelError("CustomError","Minibus already exist");
+                return BadRequest(ModelState);
+            }
             if (miniBusDTO == null)
             {
                 return BadRequest(miniBusDTO);
@@ -54,8 +58,11 @@ namespace MiniBusApi.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            miniBusDTO.Id = MiniBusStore.miniBusLista.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
+            miniBusDTO.Id = MiniBusStore.miniBusList.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
+            MiniBusStore.miniBusList.Add(miniBusDTO);
             return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
+            return Ok(miniBusDTO);
+
         }
     }
 }

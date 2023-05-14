@@ -10,7 +10,7 @@ namespace MiniBusApi.Data.Data
 {
     public static class MiniBusStore
     {
-        public static List<MiniBusDTO> miniBusLista = new List<MiniBusDTO>
+        public static List<MiniBusDTO> miniBusList = new List<MiniBusDTO>
         {
             new MiniBusDTO { Id = 1,IdCompany= 1,Brand = "Toyota",Capacity = "3", Tipo="Van"},
             new MiniBusDTO { Id = 2,IdCompany= 1,Brand = "Mazada",Capacity = "6", Tipo="Car"},

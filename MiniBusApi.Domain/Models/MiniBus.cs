@@ -1,4 +1,6 @@
-﻿namespace MiniBusApi.Domain.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MiniBusApi.Domain.Models
 {
     public class MiniBus
     {
