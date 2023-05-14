@@ -16,12 +16,13 @@ namespace MiniBusApi.Controllers
             return MiniBusStore.miniBusLista;
 
         }
-        [HttpGet("{id:int}")]
+
+        [HttpGet("{id:int}",Name ="GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
        // [ProducesResponseType(200,Type = typeof(MiniBusDTO))]
-        public ActionResult<MiniBusDTO> GetMiniBuses(int id)
+        public ActionResult<MiniBusDTO> GetMiniBus(int id)
         {   
             if (id == 0)
             {
@@ -38,7 +39,7 @@ namespace MiniBusApi.Controllers
 
         }
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
@@ -54,9 +55,7 @@ namespace MiniBusApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
             miniBusDTO.Id = MiniBusStore.miniBusLista.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
-            MiniBusStore.miniBusLista.Add(miniBusDTO);
-            return Ok(miniBusDTO);
-
+            return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
         }
     }
 }
