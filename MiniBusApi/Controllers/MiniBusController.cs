@@ -64,5 +64,23 @@ namespace MiniBusApi.Controllers
             return Ok(miniBusDTO);
 
         }
+        [HttpDelete("{id:int}", Name = "DeleteMiniBus")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult DeleteMiniBus(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest();
+            }
+            var miniBus = MiniBusStore.miniBusList.FirstOrDefault(u => u.Id == id);
+            if (miniBus == null)
+            {
+                return NotFound();
+            }
+            MiniBusStore.miniBusList.Remove(miniBus);
+            return NoContent();
+        }
     }
 }
