@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusApi.Domain.Dto;
 using MiniBusApi.Data.Data;
-
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace MiniBusApi.Controllers
 {
@@ -16,6 +16,7 @@ namespace MiniBusApi.Controllers
             return MiniBusStore.miniBusList;
 
         }
+
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -37,6 +38,7 @@ namespace MiniBusApi.Controllers
             return Ok(miniBus);
 
         }
+        
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -64,6 +66,7 @@ namespace MiniBusApi.Controllers
             return Ok(miniBusDTO);
 
         }
+        
         [HttpDelete("{id:int}", Name = "DeleteMiniBus")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -82,5 +85,49 @@ namespace MiniBusApi.Controllers
             MiniBusStore.miniBusList.Remove(miniBus);
             return NoContent();
         }
+
+        [HttpPut("{id:int}", Name = "UpdateMiniBus")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult UpdateMiniBus(int id, [FromBody]  MiniBusDTO miniBusDTO) 
+        {
+        if (miniBusDTO == null || miniBusDTO.Id != id)
+            {
+                return BadRequest();
+            }
+            var miniBus = MiniBusStore.miniBusList.FirstOrDefault(u => u.Id == id);
+            miniBus.Brand = miniBusDTO.Brand;
+            miniBus.Capacity = miniBusDTO.Capacity;
+            miniBus.IdCompany = miniBusDTO.IdCompany;
+            miniBus.Tipo = miniBusDTO.Tipo;
+
+            return NoContent();
+
+        }
+
+        [HttpPatch("{id:int}", Name = "UpdatePartialMiniBus")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+        public IActionResult UpdatePartialMinibus(int id, JsonPatchDocument<MiniBusDTO> patchDto) 
+        {
+            if (patchDto == null || id == 0)
+            {
+                return BadRequest();
+            }
+            var miniBus = MiniBusStore.miniBusList.FirstOrDefault(u => u.Id == id);
+            if (miniBus == null)
+            {
+                return NotFound();
+            }
+            patchDto.ApplyTo(miniBus,ModelState);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return NoContent();
+        }
+
     }
 }
