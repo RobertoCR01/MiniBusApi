@@ -9,11 +9,18 @@ namespace MiniBusApi.Controllers
     [ApiController]
     public class MiniBusController : ControllerBase
     {
+    
+        public MiniBusController(ILogger<MiniBusController> logger)
+        {
+   
+        }
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public IEnumerable<MiniBusDTO> GetMiniBuses()
+        public ActionResult<IEnumerable<MiniBusDTO>> GetMiniBuses()
         {
-            return MiniBusStore.miniBusList;
+            _logger.LogInformation("Getting all minibuses");
+            return Ok(MiniBusStore.miniBusList);
 
         }
 
@@ -26,6 +33,7 @@ namespace MiniBusApi.Controllers
         {
             if (id == 0)
             {
+                _logger.LogInformation($" Get Minibus error with id = {id}");
                 return BadRequest();
             };
 
