@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MiniBusApi.Domain.Dto
+namespace MiniBusApi.Models.Dto
 {
     public class MiniBusDTO
     {

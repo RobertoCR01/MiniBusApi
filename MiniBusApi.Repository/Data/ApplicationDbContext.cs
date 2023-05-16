@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MiniBusApi.Domain.Dto;
 using MiniBusApi.Domain.Models;
 using System;
 using System.Collections.Generic;
