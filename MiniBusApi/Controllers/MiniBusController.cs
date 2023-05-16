@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusApi.Domain.Dto;
 using MiniBusApi.Domain.Models;
-using MiniBusApi.Data.Data;
+using MiniBusApi.Repository.Data;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 

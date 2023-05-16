@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MiniBusApi.Data.Data;
-
+using MiniBusApi.Repository.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

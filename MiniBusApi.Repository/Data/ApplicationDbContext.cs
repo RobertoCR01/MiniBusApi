@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusApi.Data.Data
+namespace MiniBusApi.Repository.Data
 {
     public class ApplicationDbContext : DbContext
     {

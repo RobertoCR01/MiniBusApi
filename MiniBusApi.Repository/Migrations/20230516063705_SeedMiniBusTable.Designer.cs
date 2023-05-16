@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MiniBusApi.Data.Data;
+using MiniBusApi.Repository.Data;
 
 #nullable disable
 
 namespace MiniBusApi.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230516064135_SeedMiniBusTableWithCreationDate")]
-    partial class SeedMiniBusTableWithCreationDate
+    [Migration("20230516063705_SeedMiniBusTable")]
+    partial class SeedMiniBusTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,8 +74,6 @@ namespace MiniBusApi.Data.Migrations
                             Brand = "Toyota",
                             Capacity = "3",
                             IdCompany = 1,
-                            InsertionDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5333),
-                            ModificationDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5395),
                             Tipo = "Van",
                             Year = 0
                         },
@@ -85,8 +83,6 @@ namespace MiniBusApi.Data.Migrations
                             Brand = "Mazada",
                             Capacity = "6",
                             IdCompany = 1,
-                            InsertionDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5397),
-                            ModificationDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5398),
                             Tipo = "Car",
                             Year = 0
                         },
@@ -96,8 +92,6 @@ namespace MiniBusApi.Data.Migrations
                             Brand = "Isuzu",
                             Capacity = "7",
                             IdCompany = 1,
-                            InsertionDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5400),
-                            ModificationDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5401),
                             Tipo = "Bus",
                             Year = 0
                         },
@@ -107,8 +101,6 @@ namespace MiniBusApi.Data.Migrations
                             Brand = "Ford",
                             Capacity = "8",
                             IdCompany = 1,
-                            InsertionDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5403),
-                            ModificationDate = new DateTime(2023, 5, 16, 18, 41, 34, 994, DateTimeKind.Local).AddTicks(5404),
                             Tipo = "Tri",
                             Year = 0
                         });
