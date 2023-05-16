@@ -19,7 +19,6 @@ namespace MiniBusApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public ActionResult<IEnumerable<MiniBusDTO>> GetMiniBuses()
         {
-            _logger.LogInformation("Getting all minibuses");
             return Ok(MiniBusStore.miniBusList);
 
         }
@@ -33,7 +32,6 @@ namespace MiniBusApi.Controllers
         {
             if (id == 0)
             {
-                _logger.LogInformation($" Get Minibus error with id = {id}");
                 return BadRequest();
             };
 

@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiniBusApi.Domain.Models
 {
     public class MiniBus
     {
-        public MiniBus() { }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int IdCompany { get; set; }
         public string Brand { get; set; }
