@@ -84,5 +84,14 @@ namespace MiniBusApi.Controllers
             return Ok(miniBusDTO);
         }
 
+        [HttpGet("GetAll")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<MiniBusDTO>>> GetMiniBuses()
+        {
+            var minibuses = await _miniBusService.GetMinibus(_user,_date);
+            return Ok(minibuses.ToList());
+
+        }
+
     }
 }

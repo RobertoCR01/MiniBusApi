@@ -32,7 +32,8 @@ namespace MiniBusApi.Repository.administration.dao.impl
 
         public async Task<IEnumerable<MiniBus>> GetMinibus()
         {
-            throw new NotImplementedException();
+            var minibuses = _db.Minibuses.ToList();
+            return minibuses;
         }
 
 

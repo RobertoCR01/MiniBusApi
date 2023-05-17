@@ -26,7 +26,8 @@ namespace MiniBusApi.Service.administration.services.impl
 
         public async Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate)
         {
-            throw new NotImplementedException();
+            var minibuses = await _miniBusRepository.GetMinibus();
+            return minibuses;
         }
 
         public async Task<MiniBus> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
