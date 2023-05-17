@@ -39,9 +39,11 @@ namespace MiniBusApi.Repository.administration.dao.impl
             return miniBus;
         }
 
-        public async Task<ActionResult<MiniBus>> InsertMinibus(MiniBus minibus)
+        public async Task<MiniBus> InsertMinibus(MiniBus minibus)
         {
-            throw new NotImplementedException();
+            _db.Minibuses.Add(minibus);
+            _db.SaveChanges();
+            return minibus;
         }
 
         void IMiniBusRepository.Save()

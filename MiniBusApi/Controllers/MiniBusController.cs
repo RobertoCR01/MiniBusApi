@@ -35,15 +35,40 @@ namespace MiniBusApi.Controllers
             };
 
             MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
-            MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);       
+            MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
             if (minibusDTO == null)
             {
                 return NotFound();
             }
-            return Ok( minibusDTO);
+            return Ok(minibusDTO);
 
         }
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
+        public async Task<ActionResult<MiniBusDTO>> InsertMiniBus([FromBody] MiniBusDTO minibusProcesar)
+        {
+            if (minibusProcesar == null)
+            {
+                return BadRequest(minibusProcesar);
+            };
+
+            if (minibusProcesar.Id > 0)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+
+            MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
+
+            MiniBus miniBusProcesado = await  _miniBusService.InsertMinibus(minibus, _user, _date);
+            var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
+            
+            return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
+            return Ok(miniBusDTO);
+
+        }
     }
 }

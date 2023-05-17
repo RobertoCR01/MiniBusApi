@@ -13,7 +13,7 @@ namespace MiniBusApi.Repository.administration.dao
     {
         Task<IEnumerable<MiniBus>> GetMinibus();
         Task<MiniBus> GetMinibusByID(int minibusID);
-        Task<ActionResult<MiniBus>> InsertMinibus(MiniBus minibus);
+        Task<MiniBus> InsertMinibus(MiniBus minibus);
         Task<MiniBus> DeleteMinibus(int minibusID);
         Task<ActionResult<MiniBus>> UpdateMinibus(int minibusID, MiniBus minibus);
         void Save();
