@@ -19,7 +19,10 @@ namespace MiniBusApi.Repository.administration.dao.impl
         }
         public async Task<MiniBus> DeleteMinibus(int minibusID)
         {
-            throw new NotImplementedException();
+            var miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
+            _db.Minibuses.Remove(miniBus);
+            _db.SaveChanges();
+            return miniBus;
         }
 
         void IDisposable.Dispose()

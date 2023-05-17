@@ -63,12 +63,26 @@ namespace MiniBusApi.Controllers
 
             MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
 
-            MiniBus miniBusProcesado = await  _miniBusService.InsertMinibus(minibus, _user, _date);
+            MiniBus miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
-            
+
             return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
             return Ok(miniBusDTO);
 
         }
+        [HttpDelete("{minibusID:int}", Name = "DeleteMiniBus")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public async Task<IActionResult> DeleteMiniBus(int minibusID)
+        //public async Task<ActionResult<MiniBusDTO>> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
+        {
+            MiniBus miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
+            var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
+            return Ok(miniBusDTO);
+        }
+
     }
 }

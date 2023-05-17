@@ -18,9 +18,10 @@ namespace MiniBusApi.Service.administration.services.impl
         {
             this._miniBusRepository = miniBusRepository;
         }
-        public async Task<ActionResult<MiniBus>> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
+        public async Task<MiniBus> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
-            throw new NotImplementedException();
+            MiniBus miniBus = await _miniBusRepository.DeleteMinibus(minibusID);
+            return miniBus;
         }
 
         public async Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate)
