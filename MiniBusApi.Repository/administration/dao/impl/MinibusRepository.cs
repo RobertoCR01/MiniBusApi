@@ -12,7 +12,7 @@ namespace MiniBusApi.Repository.administration.dao.impl
 {
     public class MinibusRepository : IMiniBusRepository, IDisposable
     {
-        private ApplicationDbContext _db;
+        private readonly ApplicationDbContext _db;
         public MinibusRepository(ApplicationDbContext context)
         {
             this._db = context;

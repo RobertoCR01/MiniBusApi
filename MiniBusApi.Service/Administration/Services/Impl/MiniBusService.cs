@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusApi.Domain.Models;
 using MiniBusApi.Repository.administration.dao;
+using MiniBusApi.Service.administration.services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusApi.Service.Administration.Services.Impl
+namespace MiniBusApi.Service.administration.services.impl
 {
     public class MiniBusService : IMiniBusService
         {
-        private IMiniBusRepository _miniBusRepository;
+        private readonly IMiniBusRepository _miniBusRepository;
 
         public MiniBusService(IMiniBusRepository miniBusRepository)
         {
@@ -27,7 +28,7 @@ namespace MiniBusApi.Service.Administration.Services.Impl
                 throw new NotImplementedException();
             }
 
-            public async Task<ActionResult<MiniBus>> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
+            public async Task <MiniBus> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
             {
                 MiniBus minibus = await _miniBusRepository.GetMinibusByID(minibusID);
                 return minibus;

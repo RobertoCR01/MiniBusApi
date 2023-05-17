@@ -1,6 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using MiniBusApi.Repository.Data;
+using MiniBusApi.Repository.administration.dao;
+using MiniBusApi.Service.administration.services.impl;
+using MiniBusApi.Service.administration.services;
+using MiniBusApi.Repository.administration.dao.impl;
+using AutoMapper;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,11 +19,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers(options => { 
 //    options.ReturnHttpNotAcceptable = true; 
 }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
+builder.Services.AddScoped<IMiniBusRepository, MinibusRepository>();
+builder.Services.AddScoped<IMiniBusService, MiniBusService>();
+builder.Services.AddAutoMapper(typeof(Program));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
 var app = builder.Build();
+
+// Services
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
