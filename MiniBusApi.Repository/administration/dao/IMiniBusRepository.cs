@@ -15,7 +15,7 @@ namespace MiniBusApi.Repository.administration.dao
         Task<MiniBus> GetMinibusByID(int minibusID);
         Task<MiniBus> InsertMinibus(MiniBus minibus);
         Task<MiniBus> DeleteMinibus(int minibusID);
-        Task<ActionResult<MiniBus>> UpdateMinibus(int minibusID, MiniBus minibus);
+        Task<MiniBus> UpdateMinibus(MiniBus minibus);
         void Save();
     }
 }

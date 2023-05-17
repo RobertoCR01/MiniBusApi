@@ -14,7 +14,7 @@ namespace MiniBusApi.Service.administration.services
         Task<MiniBus> GetMiniBusByID(int minibusID, String loggedUser, DateTime currentDate);
         Task<MiniBus> InsertMinibus(MiniBus minibus, String loggedUser, DateTime currentDate);
         Task<MiniBus> DeleteMinibus(int minibusID, String loggedUser, DateTime currentDate);
-        Task<ActionResult<MiniBus>> UpdateMinibus(int minibusID, MiniBus minibus, String loggedUser, DateTime currentDate);
+        Task<MiniBus> UpdateMinibus(int minibusID, MiniBus minibus, String loggedUser, DateTime currentDate);
         void Save();
     }
 }

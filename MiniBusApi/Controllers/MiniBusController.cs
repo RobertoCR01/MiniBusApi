@@ -45,6 +45,7 @@ namespace MiniBusApi.Controllers
 
         }
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -88,10 +89,24 @@ namespace MiniBusApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<MiniBusDTO>>> GetMiniBuses()
         {
-            var minibuses = await _miniBusService.GetMinibus(_user,_date);
+            var minibuses = await _miniBusService.GetMinibus(_user, _date);
             return Ok(minibuses.ToList());
 
         }
+        [HttpPut("{id:int}", Name = "UpdateMiniBus")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
+        public async Task<IActionResult> UpdateMiniBus(int id, [FromBody] MiniBusDTO miniBusProcesar)
+        {
+            MiniBus minibus = _mapper.Map<MiniBus>(miniBusProcesar);
+
+            MiniBus miniBusProcesado = await _miniBusService.UpdateMinibus(id,minibus, _user, _date);
+            var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
+
+            return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
+            return Ok(miniBusDTO);
+        }
     }
 }

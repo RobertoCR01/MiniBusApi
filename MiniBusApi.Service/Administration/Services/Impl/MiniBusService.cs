@@ -46,12 +46,21 @@ namespace MiniBusApi.Service.administration.services.impl
             return minibus;
         }
 
-        void IMiniBusService.Save()
+        public async Task<MiniBus> UpdateMinibus(int minibusID, MiniBus minibusUpdated, string loggedUser, DateTime currentDate)
         {
-            throw new NotImplementedException();
-        }
+            MiniBus minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
+            minibusActual.IdCompany = minibusUpdated.IdCompany;
+            minibusActual.Brand = minibusUpdated.Brand;
+            minibusActual.Tipo = minibusUpdated.Tipo;
+            minibusActual.Year = minibusUpdated.Year;
+            minibusActual.Capacity = minibusUpdated.Capacity;
+            minibusActual.UserModifies = loggedUser;
+            minibusActual.ModificationDate = currentDate;
 
-        public async Task<ActionResult<MiniBus>> UpdateMinibus(int minibusID, MiniBus minibus, string loggedUser, DateTime currentDate)
+            MiniBus minibusProcesado = await _miniBusRepository.UpdateMinibus(minibusActual);
+            return minibusProcesado;
+        }
+        void IMiniBusService.Save()
         {
             throw new NotImplementedException();
         }

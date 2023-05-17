@@ -55,9 +55,11 @@ namespace MiniBusApi.Repository.administration.dao.impl
             throw new NotImplementedException();
         }
 
-        public async Task<ActionResult<MiniBus>> UpdateMinibus(int minibusID, MiniBus minibus)
+        public async Task<MiniBus> UpdateMinibus( MiniBus minibus)
         {
-            throw new NotImplementedException();
+            _db.Minibuses.Update(minibus);
+            _db.SaveChanges();
+            return minibus;
         }
     }
 }
