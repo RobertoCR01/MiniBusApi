@@ -1,4 +1,4 @@
-namespace MiniBusApi
+namespace MiniBusManagement.Api
 {
     public class WeatherForecast
     {

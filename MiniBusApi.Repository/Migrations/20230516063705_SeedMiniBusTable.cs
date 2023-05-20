@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MiniBusApi.Data.Migrations
+namespace MiniBusManagement.Data.Migrations
 {
     /// <inheritdoc />
     public partial class SeedMiniBusTable : Migration

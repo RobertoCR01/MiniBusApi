@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniBusApi.Service.administration.services;
+using MiniBusManagement.Service.administration.services;
 using Microsoft.AspNetCore.JsonPatch;
-using MiniBusApi.Models.Dto;
+using MiniBusManagement.Models.Dto;
 using AutoMapper;
-using MiniBusApi.Domain.Models;
+using MiniBusManagement.Domain.Models;
 
-namespace MiniBusApi.Controllers
+namespace MiniBusManagement.Controllers
 {
     [Route("api/mini-buses")]
     [ApiController]

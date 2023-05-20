@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MiniBusApi.Domain.Models
+namespace MiniBusManagement.Domain.Models
 {
     public class MiniBus
     {

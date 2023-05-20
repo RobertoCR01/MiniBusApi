@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MiniBusApi.Data.Migrations
+namespace MiniBusManagement.Data.Migrations
 {
     /// <inheritdoc />
     public partial class SeedMiniBusTableWithCreationDate : Migration

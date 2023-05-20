@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniBusApi.Domain.Models;
-using MiniBusApi.Repository.administration.dao;
-using MiniBusApi.Service.administration.services;
+using MiniBusManagement.Domain.Models;
+using MiniBusManagement.Repository.administration.dao;
+using MiniBusManagement.Service.administration.services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusApi.Service.administration.services.impl
+namespace MiniBusManagement.Service.administration.services.impl
 {
     public class MiniBusService : IMiniBusService
     {

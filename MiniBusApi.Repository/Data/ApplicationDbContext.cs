@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MiniBusApi.Domain.Models;
+using MiniBusManagement.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusApi.Repository.Data
+namespace MiniBusManagement.Repository.Data
 {
     public class ApplicationDbContext : DbContext
     {

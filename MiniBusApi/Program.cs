@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using MiniBusApi.Repository.Data;
-using MiniBusApi.Repository.administration.dao;
-using MiniBusApi.Service.administration.services.impl;
-using MiniBusApi.Service.administration.services;
-using MiniBusApi.Repository.administration.dao.impl;
+using MiniBusManagement.Repository.Data;
+using MiniBusManagement.Repository.administration.dao;
+using MiniBusManagement.Service.administration.services.impl;
+using MiniBusManagement.Service.administration.services;
+using MiniBusManagement.Repository.administration.dao.impl;
 using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);

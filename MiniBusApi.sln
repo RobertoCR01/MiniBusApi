@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusApi", "MiniBusApi\MiniBusApi.csproj", "{9DFC68BE-94E5-43D7-B415-14108080716F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Api", "MiniBusApi\MiniBusManagement.Api.csproj", "{9DFC68BE-94E5-43D7-B415-14108080716F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{98F90649-D9FE-4BD1-9C42-377F04FEB812}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusApi.Domain", "MiniBusApi.Domain\MiniBusApi.Domain.csproj", "{D81A0194-71B3-4C52-8874-C57FFD27DD41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Domain", "MiniBusApi.Domain\MiniBusManagement.Domain.csproj", "{D81A0194-71B3-4C52-8874-C57FFD27DD41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusApi.Service", "MiniBusApi.Service\MiniBusApi.Service.csproj", "{948414F6-626C-4247-A0A3-CD8A800D5C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Service", "MiniBusApi.Service\MiniBusManagement.Service.csproj", "{948414F6-626C-4247-A0A3-CD8A800D5C11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusApi.Repository", "MiniBusApi.Repository\MiniBusApi.Repository.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Repository", "MiniBusApi.Repository\MiniBusManagement.Repository.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace MiniBusApi.Controllers
+namespace MiniBusManagement.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

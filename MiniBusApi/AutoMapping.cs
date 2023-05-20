@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using MiniBusApi.Domain.Models;
-using MiniBusApi.Models.Dto;
+using MiniBusManagement.Domain.Models;
+using MiniBusManagement.Models.Dto;
 
-namespace MiniBusApi
+namespace MiniBusManagement.Api
 {
         public class AutoMapping : Profile
         {

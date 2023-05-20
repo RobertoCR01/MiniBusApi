@@ -1,4 +1,4 @@
-﻿namespace MiniBusApi.Loggin
+﻿namespace MiniBusManagement.Loggin
 {
     public interface ILogging
     {

@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using MiniBusApi.Repository.Data;
+using MiniBusManagement.Repository.Data;
 
 #nullable disable
 
-namespace MiniBusApi.Data.Migrations
+namespace MiniBusManagement.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace MiniBusApi.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MiniBusApi.Domain.Models.MiniBus", b =>
+            modelBuilder.Entity("MiniBusManagement.Domain.Models.MiniBus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MiniBusApi.Domain.Models;
+using MiniBusManagement.Domain.Models;
 
-namespace MiniBusApi.Service.administration.services
+namespace MiniBusManagement.Service.administration.services
 {
     public interface IMiniBusService
     {

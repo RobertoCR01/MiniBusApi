@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MiniBusApi.Domain.Models;
-using MiniBusApi.Repository.Data;
+using MiniBusManagement.Domain.Models;
+using MiniBusManagement.Repository.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusApi.Repository.administration.dao.impl
+namespace MiniBusManagement.Repository.administration.dao.impl
 {
     public class MinibusRepository : IMiniBusRepository, IDisposable
     {

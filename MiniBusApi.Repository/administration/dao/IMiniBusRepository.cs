@@ -1,4 +1,4 @@
-﻿using MiniBusApi.Domain.Models;
+﻿using MiniBusManagement.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace MiniBusApi.Repository.administration.dao
+namespace MiniBusManagement.Repository.administration.dao
 {
     public interface IMiniBusRepository : IDisposable
     {
