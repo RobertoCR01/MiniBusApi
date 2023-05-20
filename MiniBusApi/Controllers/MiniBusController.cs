@@ -7,7 +7,7 @@ using MiniBusApi.Domain.Models;
 
 namespace MiniBusApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/mini-buses")]
     [ApiController]
     public class MiniBusController : ControllerBase
     {
@@ -67,7 +67,7 @@ namespace MiniBusApi.Controllers
             MiniBus miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
 
-            return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
+            //return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
             return Ok(miniBusDTO);
 
         }
@@ -85,7 +85,7 @@ namespace MiniBusApi.Controllers
             return Ok(miniBusDTO);
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<MiniBusDTO>>> GetMiniBuses()
         {
