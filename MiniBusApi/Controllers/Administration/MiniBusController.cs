@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniBusManagement.Service.administration.services;
 using Microsoft.AspNetCore.JsonPatch;
-using MiniBusManagement.Models.Dto;
 using AutoMapper;
-using MiniBusManagement.Domain.Models;
+using MiniBusManagement.Service.Administration;
+using MiniBusManagement.Domain.Models.Administration;
+using MiniBusManagement.Api.Models.Administration;
 
-namespace MiniBusManagement.Controllers
+namespace MiniBusManagement.Api.Controllers.Administration
 {
     [Route("api/mini-buses")]
     [ApiController]
@@ -18,8 +18,8 @@ namespace MiniBusManagement.Controllers
 
         public MiniBusController(IMiniBusService miniBusService, IMapper mapper)
         {
-            this._miniBusService = miniBusService;
-            this._mapper = mapper;
+            _miniBusService = miniBusService;
+            _mapper = mapper;
         }
 
         [HttpGet("{id:int}", Name = "GetMiniBus")]
@@ -34,7 +34,7 @@ namespace MiniBusManagement.Controllers
                 return BadRequest();
             };
 
-            MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
+            MiniBusDomain minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
             MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
             if (minibusDTO == null)
@@ -62,9 +62,9 @@ namespace MiniBusManagement.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
+            MiniBusDomain minibus = _mapper.Map<MiniBusDomain>(minibusProcesar);
 
-            MiniBus miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
+            MiniBusDomain miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
 
             //return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
@@ -80,7 +80,7 @@ namespace MiniBusManagement.Controllers
         public async Task<IActionResult> DeleteMiniBus(int minibusID)
         //public async Task<ActionResult<MiniBusDTO>> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
-            MiniBus miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
+            MiniBusDomain miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
             return Ok(miniBusDTO);
         }
@@ -100,9 +100,9 @@ namespace MiniBusManagement.Controllers
 
         public async Task<IActionResult> UpdateMiniBus(int id, [FromBody] MiniBusDTO miniBusProcesar)
         {
-            MiniBus minibus = _mapper.Map<MiniBus>(miniBusProcesar);
+            MiniBusDomain minibus = _mapper.Map<MiniBusDomain>(miniBusProcesar);
 
-            MiniBus miniBusProcesado = await _miniBusService.UpdateMinibus(id,minibus, _user, _date);
+            MiniBusDomain miniBusProcesado = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
 
             return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);

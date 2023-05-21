@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MiniBusManagement.Domain.Models
+namespace MiniBusManagement.Domain.Models.Administration
 {
-    public class MiniBus
+    public class MiniBusDomain
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
