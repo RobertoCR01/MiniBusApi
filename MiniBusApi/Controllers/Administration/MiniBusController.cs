@@ -78,7 +78,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
         public async Task<IActionResult> DeleteMiniBus(int minibusID)
-        //public async Task<ActionResult<MiniBusDTO>> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
             MiniBusDomain miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
             var miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
