@@ -7,9 +7,9 @@ namespace MiniBusManagement.Repository.Administration
     {
         Task<IEnumerable<MiniBus>> GetMinibus();
         Task<MiniBus> GetMinibusByID(int minibusID);
-        Task<MiniBus> InsertMinibus(MiniBus minibus);
-        Task<MiniBus> DeleteMinibus(int minibusID);
-        Task<MiniBus> UpdateMinibus(MiniBus minibus);
+        Task<int> InsertMinibus(MiniBus minibus);
+        Task<int> DeleteMinibus(int minibusID);
+        Task<int> UpdateMinibus(MiniBus minibus);
         void Save();
     }
 }

@@ -6,8 +6,8 @@ namespace MiniBusManagement.Service.Administration
     {
         Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate);
         Task<MiniBus> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate);
-        Task<MiniBus> InsertMinibus(MiniBus minibus, string loggedUser, DateTime currentDate);
-        Task<MiniBus> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate);
-        Task<MiniBus> UpdateMinibus(int minibusID, MiniBus minibus, string loggedUser, DateTime currentDate);
+        Task<int> InsertMinibus(MiniBus minibus, string loggedUser, DateTime currentDate);
+        Task<int> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate);
+        Task<int> UpdateMinibus(int minibusID, MiniBus minibus, string loggedUser, DateTime currentDate);
     }
 }

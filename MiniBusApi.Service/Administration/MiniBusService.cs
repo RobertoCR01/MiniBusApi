@@ -17,10 +17,16 @@ namespace MiniBusManagement.Service.Administration
         {
             _miniBusRepository = miniBusRepository;
         }
-        public async Task<MiniBus> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
+        public async Task<int> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
-            MiniBus miniBus = await _miniBusRepository.DeleteMinibus(minibusID);
-            return miniBus;
+            try
+            {
+                int result = await _miniBusRepository.DeleteMinibus(minibusID);
+                return result; 
+            } catch (Exception)
+            {
+                return 500;
+            }
         }
 
         public async Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate)
@@ -35,29 +41,35 @@ namespace MiniBusManagement.Service.Administration
             return minibus;
         }
 
-        public async Task<MiniBus> InsertMinibus(MiniBus minibusProcesar, string loggedUser, DateTime currentDate)
+        public async Task<int> InsertMinibus(MiniBus minibusProcesar, string loggedUser, DateTime currentDate)
         {
             minibusProcesar.InsertionDate = currentDate;
             minibusProcesar.ModificationDate = currentDate;
             minibusProcesar.UserInsert = loggedUser;
             minibusProcesar.UserModifies = loggedUser;
-            MiniBus minibus = await _miniBusRepository.InsertMinibus(minibusProcesar);
-            return minibus;
+            int result = await _miniBusRepository.InsertMinibus(minibusProcesar);
+            return result;
         }
 
-        public async Task<MiniBus> UpdateMinibus(int minibusID, MiniBus minibusUpdated, string loggedUser, DateTime currentDate)
+        public async Task<int> UpdateMinibus(int minibusID, MiniBus minibusUpdated, string loggedUser, DateTime currentDate)
         {
-            MiniBus minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
-            minibusActual.IdCompany = minibusUpdated.IdCompany;
-            minibusActual.Brand = minibusUpdated.Brand;
-            minibusActual.Tipo = minibusUpdated.Tipo;
-            minibusActual.Year = minibusUpdated.Year;
-            minibusActual.Capacity = minibusUpdated.Capacity;
-            minibusActual.UserModifies = loggedUser;
-            minibusActual.ModificationDate = currentDate;
+            try
+            {
+                MiniBus minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
+                minibusActual.IdCompany = minibusUpdated.IdCompany;
+                minibusActual.Brand = minibusUpdated.Brand;
+                minibusActual.Tipo = minibusUpdated.Tipo;
+                minibusActual.Year = minibusUpdated.Year;
+                minibusActual.Capacity = minibusUpdated.Capacity;
+                minibusActual.UserModifies = loggedUser;
+                minibusActual.ModificationDate = currentDate;
 
-            MiniBus minibusProcesado = await _miniBusRepository.UpdateMinibus(minibusActual);
-            return minibusProcesado;
+                int result = await _miniBusRepository.UpdateMinibus(minibusActual);
+                return result;
+            } catch (Exception)
+            {
+                return 500;
+            }
         }
     }
 }
