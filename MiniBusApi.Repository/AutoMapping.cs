@@ -8,8 +8,8 @@ namespace MiniBusManagement.Repository
         {
             public AutoMapping()
             {
-                CreateMap<MiniBusDomain, MiniBusDBEntity>();
-                CreateMap<MiniBusDBEntity, MiniBusDomain>();
+                CreateMap<MiniBus, MiniBusDBEntity>();
+                CreateMap<MiniBusDBEntity, MiniBus>();
 
         }
         }

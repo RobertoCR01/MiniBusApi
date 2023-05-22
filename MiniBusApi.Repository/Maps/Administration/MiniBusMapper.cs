@@ -5,11 +5,11 @@ namespace MiniBusManagement.Repository.Maps.Administration
 {
     public class MiniBusMapper
     {
-        public  MiniBusDomain MinibusToMiniBusDomain(MiniBusDBEntity miniBus)
+        public  MiniBus MinibusToMiniBusDomain(MiniBusDBEntity miniBus)
         {
             if (miniBus != null)
             {
-                return new MiniBusDomain
+                return new MiniBus
                 {
                     Id = miniBus.Id,
                     IdCompany = miniBus.IdCompany,
@@ -24,9 +24,9 @@ namespace MiniBusManagement.Repository.Maps.Administration
                 };
             }
 
-            return new MiniBusDomain();
+            return new MiniBus();
         }
-        public MiniBusDBEntity MinibusDomainToMiniBus(MiniBusDomain miniBusDomain)
+        public MiniBusDBEntity MinibusDomainToMiniBus(MiniBus miniBusDomain)
         {
             if (miniBusDomain != null)
             {

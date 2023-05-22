@@ -34,7 +34,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 return BadRequest();
             };
 
-            MiniBusDomain minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
+            MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
             MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
             if (minibusDTO == null)
@@ -62,9 +62,9 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-            MiniBusDomain minibus = _mapper.Map<MiniBusDomain>(minibusProcesar);
+            MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
 
-            MiniBusDomain miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
+            MiniBus miniBusProcesado = await _miniBusService.InsertMinibus(minibus, _user, _date);
             MiniBusDTO miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
 
             //return CreatedAtRoute("GetMiniBus", new { id = miniBusDTO.Id }, miniBusDTO);
@@ -79,7 +79,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
         public async Task<IActionResult> DeleteMiniBus(int minibusID)
         {
-            MiniBusDomain miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
+            MiniBus miniBusProcesado = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
             MiniBusDTO miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
             return Ok(miniBusDTO);
         }
@@ -99,9 +99,9 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
         public async Task<IActionResult> UpdateMiniBus(int id, [FromBody] MiniBusDTO miniBusProcesar)
         {
-            MiniBusDomain minibus = _mapper.Map<MiniBusDomain>(miniBusProcesar);
+            MiniBus minibus = _mapper.Map<MiniBus>(miniBusProcesar);
 
-            MiniBusDomain miniBusProcesado = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
+            MiniBus miniBusProcesado = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
             MiniBusDTO miniBusDTO = _mapper.Map<MiniBusDTO>(miniBusProcesado);
             return Ok(miniBusDTO);
         }

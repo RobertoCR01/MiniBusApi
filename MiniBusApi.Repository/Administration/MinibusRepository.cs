@@ -17,19 +17,19 @@ namespace MiniBusManagement.Repository.Administration
             _mapper = new MiniBusMapper();
         }
 
-        public async Task<MiniBusDomain> DeleteMinibus(int minibusID)
+        public async Task<MiniBus> DeleteMinibus(int minibusID)
         {
 
             MiniBusDBEntity? miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
             if (miniBus == null)
             {
-                MiniBusDomain miniBusDomain  = new();
+                MiniBus miniBusDomain  = new();
                 return miniBusDomain;
             } else
             {
                 _db.Minibuses.Remove(miniBus);
                 _db.SaveChanges();
-                MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+                MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
                 return miniBusDomain;
             }
 
@@ -40,10 +40,10 @@ namespace MiniBusManagement.Repository.Administration
             GC.SuppressFinalize(this);
         }
 
-        public async Task<IEnumerable<MiniBusDomain>> GetMinibus()
+        public async Task<IEnumerable<MiniBus>> GetMinibus()
         {
             var minibuses = _db.Minibuses.ToList();
-            List<MiniBusDomain> minBusDomain = new();
+            List<MiniBus> minBusDomain = new();
             foreach (MiniBusDBEntity minibus in minibuses)
             {
                minBusDomain.Add(_mapper.MinibusToMiniBusDomain(minibus));
@@ -52,26 +52,26 @@ namespace MiniBusManagement.Repository.Administration
         }
 
 
-        public async Task<MiniBusDomain> GetMinibusByID(int minibusID)
+        public async Task<MiniBus> GetMinibusByID(int minibusID)
         {
             MiniBusDBEntity? miniBus = await _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
             if (miniBus == null)
             {
-                MiniBusDomain minBusDomain = new();
+                MiniBus minBusDomain = new();
                 return minBusDomain;
             } else
             {
-                MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+                MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
                 return miniBusDomain;
             }
         }
 
-        public async Task<MiniBusDomain> InsertMinibus(MiniBusDomain minibusDomainInsert)
+        public async Task<MiniBus> InsertMinibus(MiniBus minibusDomainInsert)
         {
             MiniBusDBEntity miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainInsert);
             _db.Minibuses.Add(miniBus);
             _db.SaveChanges();
-            MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+            MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
             return miniBusDomain;
         }
 
@@ -80,12 +80,12 @@ namespace MiniBusManagement.Repository.Administration
             throw new NotImplementedException();
         }
 
-        public async Task<MiniBusDomain> UpdateMinibus(MiniBusDomain minibusDomainUpdate)
+        public async Task<MiniBus> UpdateMinibus(MiniBus minibusDomainUpdate)
         {
             MiniBusDBEntity miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainUpdate);
             _db.Minibuses.Update(miniBus);
             _db.SaveChanges();
-            MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+            MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
             return miniBusDomain;
         }
     }

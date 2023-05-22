@@ -17,37 +17,37 @@ namespace MiniBusManagement.Service.Administration
         {
             _miniBusRepository = miniBusRepository;
         }
-        public async Task<MiniBusDomain> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
+        public async Task<MiniBus> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
-            MiniBusDomain miniBus = await _miniBusRepository.DeleteMinibus(minibusID);
+            MiniBus miniBus = await _miniBusRepository.DeleteMinibus(minibusID);
             return miniBus;
         }
 
-        public async Task<IEnumerable<MiniBusDomain>> GetMinibus(string loggedUser, DateTime currentDate)
+        public async Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate)
         {
             var minibuses = await _miniBusRepository.GetMinibus();
             return minibuses;
         }
 
-        public async Task<MiniBusDomain> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
+        public async Task<MiniBus> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
         {
-            MiniBusDomain minibus = await _miniBusRepository.GetMinibusByID(minibusID);
+            MiniBus minibus = await _miniBusRepository.GetMinibusByID(minibusID);
             return minibus;
         }
 
-        public async Task<MiniBusDomain> InsertMinibus(MiniBusDomain minibusProcesar, string loggedUser, DateTime currentDate)
+        public async Task<MiniBus> InsertMinibus(MiniBus minibusProcesar, string loggedUser, DateTime currentDate)
         {
             minibusProcesar.InsertionDate = currentDate;
             minibusProcesar.ModificationDate = currentDate;
             minibusProcesar.UserInsert = loggedUser;
             minibusProcesar.UserModifies = loggedUser;
-            MiniBusDomain minibus = await _miniBusRepository.InsertMinibus(minibusProcesar);
+            MiniBus minibus = await _miniBusRepository.InsertMinibus(minibusProcesar);
             return minibus;
         }
 
-        public async Task<MiniBusDomain> UpdateMinibus(int minibusID, MiniBusDomain minibusUpdated, string loggedUser, DateTime currentDate)
+        public async Task<MiniBus> UpdateMinibus(int minibusID, MiniBus minibusUpdated, string loggedUser, DateTime currentDate)
         {
-            MiniBusDomain minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
+            MiniBus minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
             minibusActual.IdCompany = minibusUpdated.IdCompany;
             minibusActual.Brand = minibusUpdated.Brand;
             minibusActual.Tipo = minibusUpdated.Tipo;
@@ -56,7 +56,7 @@ namespace MiniBusManagement.Service.Administration
             minibusActual.UserModifies = loggedUser;
             minibusActual.ModificationDate = currentDate;
 
-            MiniBusDomain minibusProcesado = await _miniBusRepository.UpdateMinibus(minibusActual);
+            MiniBus minibusProcesado = await _miniBusRepository.UpdateMinibus(minibusActual);
             return minibusProcesado;
         }
     }

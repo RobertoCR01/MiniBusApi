@@ -8,8 +8,8 @@ namespace MiniBusManagement.Api
         {
             public AutoMapping()
             {
-                CreateMap<MiniBusDomain, MiniBusDTO>();
-                CreateMap<MiniBusDTO, MiniBusDomain>();
+                CreateMap<MiniBus, MiniBusDTO>();
+                CreateMap<MiniBusDTO, MiniBus>();
 
         }
         }
