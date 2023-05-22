@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiniBusManagement.Repository.Administration
 {
-    public class MiniBus
+    public class MiniBusDBEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

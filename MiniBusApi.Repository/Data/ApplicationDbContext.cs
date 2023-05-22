@@ -15,12 +15,12 @@ namespace MiniBusManagement.Repository.Data
         { 
         
         }
-        public DbSet<MiniBus> Minibuses { get; set; }
+        public DbSet<MiniBusDBEntity> Minibuses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MiniBus>().HasData(
-                new MiniBus
+            modelBuilder.Entity<MiniBusDBEntity>().HasData(
+                new MiniBusDBEntity
                 {
                     Id = 1,
                     IdCompany = 1,
@@ -30,7 +30,7 @@ namespace MiniBusManagement.Repository.Data
                     InsertionDate = DateTime.Now,
                     ModificationDate = DateTime.Now
                 },
-                new MiniBus
+                new MiniBusDBEntity
                 {
                     Id = 2,
                     IdCompany = 1,
@@ -40,7 +40,7 @@ namespace MiniBusManagement.Repository.Data
                     InsertionDate = DateTime.Now,
                     ModificationDate = DateTime.Now
                 },
-                new MiniBus
+                new MiniBusDBEntity
                 {
                     Id = 3,
                     IdCompany = 1,
@@ -50,7 +50,7 @@ namespace MiniBusManagement.Repository.Data
                     InsertionDate = DateTime.Now,
                     ModificationDate = DateTime.Now
                 },
-                new MiniBus
+                new MiniBusDBEntity
                 {
                     Id = 4,
                     IdCompany = 1,

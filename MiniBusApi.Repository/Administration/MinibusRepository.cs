@@ -20,7 +20,7 @@ namespace MiniBusManagement.Repository.Administration
         public async Task<MiniBusDomain> DeleteMinibus(int minibusID)
         {
 
-            MiniBus? miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
+            MiniBusDBEntity? miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
             if (miniBus == null)
             {
                 MiniBusDomain miniBusDomain  = new();
@@ -44,7 +44,7 @@ namespace MiniBusManagement.Repository.Administration
         {
             var minibuses = _db.Minibuses.ToList();
             List<MiniBusDomain> minBusDomain = new();
-            foreach (MiniBus minibus in minibuses)
+            foreach (MiniBusDBEntity minibus in minibuses)
             {
                minBusDomain.Add(_mapper.MinibusToMiniBusDomain(minibus));
             }
@@ -54,7 +54,7 @@ namespace MiniBusManagement.Repository.Administration
 
         public async Task<MiniBusDomain> GetMinibusByID(int minibusID)
         {
-            MiniBus? miniBus = await _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
+            MiniBusDBEntity? miniBus = await _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
             if (miniBus == null)
             {
                 MiniBusDomain minBusDomain = new();
@@ -68,7 +68,7 @@ namespace MiniBusManagement.Repository.Administration
 
         public async Task<MiniBusDomain> InsertMinibus(MiniBusDomain minibusDomainInsert)
         {
-            MiniBus miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainInsert);
+            MiniBusDBEntity miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainInsert);
             _db.Minibuses.Add(miniBus);
             _db.SaveChanges();
             MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
@@ -82,7 +82,7 @@ namespace MiniBusManagement.Repository.Administration
 
         public async Task<MiniBusDomain> UpdateMinibus(MiniBusDomain minibusDomainUpdate)
         {
-            MiniBus miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainUpdate);
+            MiniBusDBEntity miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainUpdate);
             _db.Minibuses.Update(miniBus);
             _db.SaveChanges();
             MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
