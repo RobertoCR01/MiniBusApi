@@ -11,7 +11,7 @@ namespace MiniBusManagement.Service.Administration
 {
     public class MiniBusService : IMiniBusService
     {
-        private IMiniBusRepository _miniBusRepository;
+        private readonly IMiniBusRepository _miniBusRepository;
 
         public MiniBusService(IMiniBusRepository miniBusRepository)
         {

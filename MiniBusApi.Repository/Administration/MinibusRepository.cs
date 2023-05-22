@@ -16,26 +16,34 @@ namespace MiniBusManagement.Repository.Administration
             _db = context;
             _mapper = new MiniBusMapper();
         }
+
         public async Task<MiniBusDomain> DeleteMinibus(int minibusID)
         {
-            
-            MiniBus miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
-            _db.Minibuses.Remove(miniBus);
-            _db.SaveChanges();
-            MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
 
-            return miniBusDomain;
+            MiniBus? miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
+            if (miniBus == null)
+            {
+                MiniBusDomain miniBusDomain  = new();
+                return miniBusDomain;
+            } else
+            {
+                _db.Minibuses.Remove(miniBus);
+                _db.SaveChanges();
+                MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+                return miniBusDomain;
+            }
+
         }
 
         void IDisposable.Dispose()
         {
-            throw new NotImplementedException();
+            GC.SuppressFinalize(this);
         }
 
         public async Task<IEnumerable<MiniBusDomain>> GetMinibus()
         {
             var minibuses = _db.Minibuses.ToList();
-            List<MiniBusDomain> minBusDomain = new List<MiniBusDomain>();
+            List<MiniBusDomain> minBusDomain = new();
             foreach (MiniBus minibus in minibuses)
             {
                minBusDomain.Add(_mapper.MinibusToMiniBusDomain(minibus));
@@ -46,9 +54,16 @@ namespace MiniBusManagement.Repository.Administration
 
         public async Task<MiniBusDomain> GetMinibusByID(int minibusID)
         {
-            MiniBus miniBus = await  _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
-            MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
-            return miniBusDomain;
+            MiniBus? miniBus = await _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
+            if (miniBus == null)
+            {
+                MiniBusDomain minBusDomain = new();
+                return minBusDomain;
+            } else
+            {
+                MiniBusDomain miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
+                return miniBusDomain;
+            }
         }
 
         public async Task<MiniBusDomain> InsertMinibus(MiniBusDomain minibusDomainInsert)
