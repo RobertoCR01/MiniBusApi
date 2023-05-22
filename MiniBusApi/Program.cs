@@ -1,7 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using MiniBusManagement.Repository.Data;
-using AutoMapper;
 using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Repository.Administration;
 
@@ -19,7 +17,6 @@ builder.Services.AddControllers(options => {
 }).AddNewtonsoftJson().AddXmlDataContractSerializerFormatters();
 builder.Services.AddScoped<IMiniBusRepository, MinibusRepository>();
 builder.Services.AddScoped<IMiniBusService, MiniBusService>();
-builder.Services.AddAutoMapper(typeof(Program));
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
