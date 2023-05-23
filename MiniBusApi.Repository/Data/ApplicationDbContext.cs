@@ -16,6 +16,7 @@ namespace MiniBusManagement.Repository.Data
         
         }
         public DbSet<MiniBusDBEntity> Minibuses { get; set; }
+        public DbSet<PlaceDBEntity> Places { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,6 +62,30 @@ namespace MiniBusManagement.Repository.Data
                     ModificationDate = DateTime.Now
                 }
          );
+            modelBuilder.Entity<PlaceDBEntity>().HasData(
+                new PlaceDBEntity
+                {
+                    Id = 1,
+                    Provincia = "San José",
+                    Canton = "Puriscal",
+                    Name = "Ruta Herradura",
+                    InsertionDate = DateTime.Now,
+                    ModificationDate = DateTime.Now,
+                    UserInsert = "Roberto Diaz",
+                    UserModifies = "Roberto"
+                },
+                new PlaceDBEntity
+                {
+                    Id = 2,
+                    Provincia = "San José",
+                    Canton = "Ciudad Colón",
+                    Name = "Ruta del Sol",
+                    InsertionDate = DateTime.Now,
+                    ModificationDate = DateTime.Now,
+                    UserInsert = "Roberto Diaz",
+                    UserModifies = "Roberto"
+                }
+            );
         }
 
     }

@@ -35,7 +35,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest);
+                    return StatusCode(400);
                 };
 
                 MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
@@ -43,9 +43,9 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
                 if (minibusDTO.Id == 0)
                 {
-                    return StatusCode(StatusCodes.Status404NotFound);
+                    return StatusCode(404);
                 }
-                return StatusCode(StatusCodes.Status200OK,minibusDTO);
+                return StatusCode(200,minibusDTO);
             } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -64,25 +64,21 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (minibusProcesar == null)
                 {
-                    return StatusCode(StatusCodes.Status400BadRequest);
+                    return StatusCode(400);
                 };
 
                 if (minibusProcesar.Id > 0)
                 {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
+                    return StatusCode(500);
                 }
 
                 MiniBus minibus = _mapper.MinibusDtoToMiniBus(minibusProcesar);
 
                 int result = await _miniBusService.InsertMinibus(minibus, _user, _date);
-                if (result == 1) {
-                    return StatusCode(StatusCodes.Status201Created);
-                } else {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                }
+                    return StatusCode(result);
             } catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(500);
             }
 
         }
@@ -97,19 +93,10 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 int result = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
-                if (result == 1)
-                {
-                    return StatusCode(StatusCodes.Status204NoContent);
-                } else if (result == 404)
-                {
-                    return StatusCode(StatusCodes.Status404NotFound);
-                } else
-                {
-                    return StatusCode(StatusCodes.Status500InternalServerError);
-                }
+                return StatusCode(result);
+
             } catch (Exception)
             {
-                MiniBus minibus = new();
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
             
@@ -124,9 +111,9 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 var minibuses = await _miniBusService.GetMinibus(_user, _date);
-                return StatusCode(StatusCodes.Status200OK, minibuses);
+                return StatusCode(200, minibuses);
             } catch (Exception) { 
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(500);
             }
 
 
@@ -134,19 +121,31 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [HttpPut("{id:int}", Name = "UpdateMiniBus")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+
 
         public async Task<IActionResult> UpdateMiniBus(int id, [FromBody] MiniBusDTO miniBusProcesar)
         {
-            MiniBus minibus = _mapper.MinibusDtoToMiniBus(miniBusProcesar);
-
-            int  result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
-            if (result == 1)
+            try
             {
-                return StatusCode(StatusCodes.Status204NoContent);
-            } else
+                if (id == 0)
+                {
+                    return StatusCode(400);
+                }
+                if (miniBusProcesar.Id != id)
+                {
+                    return StatusCode(409);
+                }
+                MiniBus minibus = _mapper.MinibusDtoToMiniBus(miniBusProcesar);
+                int result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
+                return StatusCode(result);
+            } catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError) ;
+                return StatusCode(500);
             }
+
              
         }
     }

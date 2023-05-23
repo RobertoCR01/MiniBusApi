@@ -30,7 +30,7 @@ namespace MiniBusManagement.Repository.Administration
                     _db.Minibuses.Remove(miniBus);
                     _db.SaveChanges();
                     MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
-                    return 1;
+                    return 204;
                 }
             } catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace MiniBusManagement.Repository.Administration
                 _db.Minibuses.Add(miniBus);
                 _db.SaveChanges();
                 MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
-                return 1;
+                return 201;
             }
             catch (Exception)
             {
@@ -101,10 +101,14 @@ namespace MiniBusManagement.Repository.Administration
             try
             {
                 MiniBusDBEntity miniBus = _mapper.MinibusDomainToMiniBus(minibusDomainUpdate);
+                if (miniBus.Id == 0)
+                {
+                    return 404;
+                }
                 _db.Minibuses.Update(miniBus);
                 _db.SaveChanges();
                 MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
-                return 1;
+                return 204;
             } catch (Exception)
             {
                 return 500;
