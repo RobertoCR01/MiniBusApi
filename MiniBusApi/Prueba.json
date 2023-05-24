@@ -1,0 +1,20 @@
+{
+  {
+    "Logging": {
+      "LogLevel": {
+        "Default": "Information",
+        "Microsoft.AspNetCore": "Warning"
+      }
+    },
+    "AllowedHosts": "*",
+    "AllowedHosts02": "*test",
+    "ConnectionStrings": {
+      "DefaultSQLConnection": "Server = .; Database = MiniBusAPI; user id=sa; password= Rd22492552; TrustServerCertificate = True; MultipleActiveResultSets=True"
+    },
+    "Jwt": {
+      "Issuer": "Gatherly",
+      "Audience": "Gatherly",
+      "SecretKey": "dont-tell-anyone!"
+    }
+  }
+}

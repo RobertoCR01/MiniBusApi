@@ -17,13 +17,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly MiniBusMapper _mapper;
+        private readonly IConfiguration _configuration;
         private readonly IOptionsMonitor<JwtOptions > _options;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options)
+        public MiniBusController(IMiniBusService miniBusService, IConfiguration configuration)
         {
             _miniBusService = miniBusService;
             _mapper = new MiniBusMapper();
-            _options = options;
+            _configuration  = configuration;
         }
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,7 +39,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
-                    var todo = _options.CurrentValue.SecretKey;
+                    string? jsonValue = _configuration.GetValue<string>("AllowedHosts02");
                     return StatusCode(400);
                 };
 
