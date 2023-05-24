@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Repository.Data;
 using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Repository.Administration;
+using Microsoft.Extensions.Configuration;
+using MiniBusManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,10 +23,10 @@ builder.Services.AddScoped<IMiniBusService, MiniBusService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.Configure<JwtOptions>(
+    builder.Configuration.GetSection("Jwt"));
 
 var app = builder.Build();
-
 // Services
 
 

@@ -3,7 +3,9 @@ using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Api.Mapper;
-using System.Net;
+using MiniBusManagement.Api;
+using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Builder.Extensions;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -15,13 +17,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly MiniBusMapper _mapper;
+        private readonly IOptionsMonitor<JwtOptions > _options;
 
-        public MiniBusController(IMiniBusService miniBusService)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options)
         {
             _miniBusService = miniBusService;
             _mapper = new MiniBusMapper();
+            _options = options;
         }
-
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -35,6 +38,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
+                    var todo = _options.CurrentValue.SecretKey;
                     return StatusCode(400);
                 };
 
