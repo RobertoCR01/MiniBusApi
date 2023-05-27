@@ -17,14 +17,13 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly MiniBusMapper _mapper;
-        private readonly IConfiguration _configuration;
         private readonly IOptionsMonitor<JwtOptions > _options;
 
-        public MiniBusController(IMiniBusService miniBusService, IConfiguration configuration)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options)
         {
             _miniBusService = miniBusService;
             _mapper = new MiniBusMapper();
-            _configuration  = configuration;
+            _options = options;
         }
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -33,13 +32,13 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
         // [ProducesResponseType(200,Type = typeof(MiniBusDTO))]
-        public async Task<ActionResult<MiniBusDTO>> GetMiniBus(int id)
+        public async Task<IActionResult> GetMiniBus(int id)
         {
             try
             {
                 if (id == 0)
                 {
-                    string? jsonValue = _configuration.GetValue<string>("AllowedHosts02");
+                    var todo = _options.CurrentValue.SecretKey;
                     return StatusCode(400);
                 };
 
@@ -116,7 +115,8 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 var minibuses = await _miniBusService.GetMinibus(_user, _date);
-                return StatusCode(200, minibuses);
+                return StatusCode(500);
+                //return StatusCode(200, minibuses);
             } catch (Exception) { 
                 return StatusCode(500);
             }

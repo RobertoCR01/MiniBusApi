@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MiniBusManagement.Service": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:60708;http://localhost:60711"
+    }
+  }
+}
