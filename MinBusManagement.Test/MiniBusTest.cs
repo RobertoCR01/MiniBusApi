@@ -9,29 +9,40 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using MiniBusManagement.Domain.Models.Administration;
 using Moq;
+using System.Reflection.Metadata;
 
 namespace MiniBusManagement
 {
     public class MiniBusTest
     {
-        private readonly IMiniBusService _miniBusService;
         private readonly IOptionsMonitor<JwtOptions> _options;
         public MiniBusTest() 
         {
-            _miniBusService = A.Fake<IMiniBusService>();
             _options = A.Fake<IOptionsMonitor<JwtOptions>>();
         }
 
         [Fact]
-        public void TestMiniBusControllerGet()
+        public async Task TestMiniBusControllerGet()
         {
-            var minibuses = A.Fake<ICollection<MiniBusDTO>>();
-            var miniBusList = A.Fake<List<MiniBusDTO>>();
-            var controller = new MiniBusController(_miniBusService, _options);
-            var result = controller.GetMiniBuses();
-            result.Should().NotBeNull();
-            result.Should().BeOfType<Task<ActionResult<IEnumerable<MiniBusDTO>>>>();
-            Assert.IsType<OkResult>(result);
+            var minibuses = A.Fake<ICollection<MiniBus>>();
+            var miniBusList = A.Fake<List<MiniBus>>();
+            miniBusList.Add(new MiniBus { Id = 1, IdCompany = 2, Capacity = "20", Brand = "Toyota" });
+            miniBusList.Add(new MiniBus { Id = 2, IdCompany = 2, Capacity = "20", Brand = "Isuzu" });
+            
+
+            var mockBookService = new Mock<IMiniBusService>();
+            mockBookService.Setup(c => c.GetMinibus( "Roberto", It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
+            var controller = new MiniBusController(mockBookService.Object, _options);
+            var actionResult = await controller.GetMiniBuses();
+           
+            //Assert
+            var result = actionResult.Result as ObjectResult;
+            Assert.NotNull(result);
+            var miniBus = result.Value as List<MiniBus>;
+            Assert.NotNull(miniBus);
+
+
+
         }
 
         [Fact]
@@ -44,7 +55,7 @@ namespace MiniBusManagement
                 Brand = "Prueba",
                 Tipo = "Van"
             };
-            int miniBusId = 1;
+            int miniBusId = 0;
             var mockBookService = new Mock<IMiniBusService>();
             mockBookService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
 
@@ -65,6 +76,7 @@ namespace MiniBusManagement
             if (result is ObjectResult)
             {
                 var actualResult = (ObjectResult)result;
+                var bus = actualResult.Value;
                 statusCode = actualResult.StatusCode.Value;
             }
 
@@ -77,25 +89,6 @@ namespace MiniBusManagement
             Assert.Equal(document.Tipo, resultDto.Tipo);
             Assert.Equal(document.Id, resultDto.Id);
 
-        }
-
-        [Fact]
-        public void TestMiniBusControllerGetById() {
-            MiniBus document = new MiniBus();
-            document.Id = 1;
-            // Arrange
-            var controller = new MiniBusController(_miniBusService,_options);
-
-            // Act
-            var result = controller.GetMiniBus(1);
-            Assert.IsType<MiniBusDTO>(result);
-
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<MiniBusDTO>(result);
-            //Assert.IsType<OkResult>(result);
-            // Add more assertions to validate the expected behavior
         }
     }
 }

@@ -31,6 +31,7 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
+var ambiente = app.Environment.EnvironmentName.ToLower();
 if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger();

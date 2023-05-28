@@ -6,6 +6,7 @@ using MiniBusManagement.Api.Mapper;
 using MiniBusManagement.Api;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder.Extensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -47,12 +48,12 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
                 if (minibusDTO.Id == 0)
                 {
-                    return StatusCode(404);
+                    return NotFound("MiniBus does not exist");
                 }
                 return Ok(minibusDTO);
             } catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                return StatusCode(StatusCodes.Status500InternalServerError,"Error interno en el servidor");
             }
 
         }
@@ -68,21 +69,28 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (minibusProcesar == null)
                 {
-                    return StatusCode(400);
+                    return BadRequest();
                 };
 
                 if (minibusProcesar.Id > 0)
                 {
-                    return StatusCode(500);
+                    return BadRequest();
                 }
 
                 MiniBus minibus = _mapper.MinibusDtoToMiniBus(minibusProcesar);
 
                 int result = await _miniBusService.InsertMinibus(minibus, _user, _date);
-                    return StatusCode(result);
+                if (result == 201)
+                {
+                    return StatusCode(StatusCodes.Status201Created); 
+                } else
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError);
+                }
+                return StatusCode(result);
             } catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
         }
@@ -97,7 +105,15 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 int result = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
-                return StatusCode(result);
+                switch (result)
+                {
+                    case 204:
+                        return NoContent();
+                    case 404:
+                        return NotFound();
+                    default:
+                        return StatusCode(StatusCodes.Status500InternalServerError);
+                }
 
             } catch (Exception)
             {
@@ -115,13 +131,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 var minibuses = await _miniBusService.GetMinibus(_user, _date);
-                return StatusCode(200, minibuses);
-            } catch (Exception) { 
-                return StatusCode(500);
+                return Ok(minibuses);
+            } catch (Exception) {
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
 
         }
+        
         [HttpPut("{id:int}", Name = "UpdateMiniBus")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -136,18 +153,26 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
-                    return StatusCode(400);
+                    return BadRequest();
                 }
                 if (miniBusProcesar.Id != id)
                 {
-                    return StatusCode(409);
+                    return Conflict("Different Ids");
                 }
                 MiniBus minibus = _mapper.MinibusDtoToMiniBus(miniBusProcesar);
                 int result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
+                switch (result) {
+                    case 204:
+                        return NoContent();
+                    case 404:
+                        return NotFound();
+                    default:
+                        return StatusCode(StatusCodes.Status500InternalServerError);
+                }
                 return StatusCode(result);
             } catch (Exception)
             {
-                return StatusCode(500);
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
              
