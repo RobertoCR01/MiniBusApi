@@ -33,7 +33,17 @@
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Test"
+        "ASPNETCORE_ENVIRONMENT": "Prueba"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7202;http://localhost:5204"
+    },
+    "Azure": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Azure"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7202;http://localhost:5204"

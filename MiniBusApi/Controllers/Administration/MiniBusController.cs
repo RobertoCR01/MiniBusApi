@@ -39,7 +39,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 if (id == 0)
                 {
                     var todo = _options.CurrentValue.SecretKey;
-                    return StatusCode(400);
+                    return BadRequest("invalid id");
                 };
 
                 MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
@@ -49,7 +49,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 {
                     return StatusCode(404);
                 }
-                return StatusCode(200,minibusDTO);
+                return Ok(minibusDTO);
             } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
@@ -115,8 +115,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 var minibuses = await _miniBusService.GetMinibus(_user, _date);
-                return StatusCode(500);
-                //return StatusCode(200, minibuses);
+                return StatusCode(200, minibuses);
             } catch (Exception) { 
                 return StatusCode(500);
             }
