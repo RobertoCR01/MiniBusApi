@@ -18,7 +18,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly MiniBusMapper _mapper;
-        private readonly IOptionsMonitor<JwtOptions > _options;
+        private readonly IOptionsMonitor<JwtOptions> _options;
 
         public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options)
         {
@@ -31,8 +31,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-        // [ProducesResponseType(200,Type = typeof(MiniBusDTO))]
         public async Task<IActionResult> GetMiniBus(int id)
         {
             try
@@ -53,17 +51,15 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 return Ok(minibusDTO);
             } catch (Exception)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,"Error interno en el servidor");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Error interno en el servidor");
             }
 
         }
-       
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-        public async Task<ActionResult<MiniBusDTO>> InsertMiniBus([FromBody] MiniBusDTO minibusProcesar)
+        public async Task<ActionResult> InsertMiniBus([FromBody] MiniBusDTO minibusProcesar)
         {
             try
             {
@@ -82,24 +78,21 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 int result = await _miniBusService.InsertMinibus(minibus, _user, _date);
                 if (result == 201)
                 {
-                    return StatusCode(StatusCodes.Status201Created); 
+                    return StatusCode(StatusCodes.Status201Created);
                 } else
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError);
                 }
-                return StatusCode(result);
             } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
         }
-       
         [HttpDelete("{minibusID:int}", Name = "DeleteMiniBus")]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-
         public async Task<IActionResult> DeleteMiniBus(int minibusID)
         {
             try
@@ -119,13 +112,11 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            
-        }
 
+        }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
         public async Task<ActionResult<IEnumerable<MiniBusDTO>>> GetMiniBuses()
         {
             try
@@ -138,15 +129,12 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
 
         }
-        
         [HttpPut("{id:int}", Name = "UpdateMiniBus")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-
-
         public async Task<IActionResult> UpdateMiniBus(int id, [FromBody] MiniBusDTO miniBusProcesar)
         {
             try
@@ -169,7 +157,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     default:
                         return StatusCode(StatusCodes.Status500InternalServerError);
                 }
-                return StatusCode(result);
             } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
