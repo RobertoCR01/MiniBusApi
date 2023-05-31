@@ -4,14 +4,10 @@ using MiniBusManagement.Service.Administration;
 using Microsoft.Extensions.Options;
 using MiniBusManagement.Api;
 using MiniBusManagement.Api.Models.Administration;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 using MiniBusManagement.Domain.Models.Administration;
 using Moq;
-using System.Reflection.Metadata;
-using Microsoft.AspNetCore.Http;
-using System.Xml.Linq;
+using Xunit;
 
 namespace MiniBusManagement.Test
 {
@@ -164,18 +160,7 @@ namespace MiniBusManagement.Test
         [Fact]
         public async Task TestMiniBusControllerInsertMiniBusSuccess()
         {
-            var miniBusInsertar = A.Fake<MiniBus>();
-            miniBusInsertar.Id = 0;
-            miniBusInsertar.IdCompany = 2;
-            miniBusInsertar.Capacity = "20";
-            miniBusInsertar.Brand = "Toyota";
-            miniBusInsertar.Year = 2020;
-            miniBusInsertar.ModificationDate = It.IsAny<DateTime>();
-            miniBusInsertar.InsertionDate = It.IsAny<DateTime>();
-            miniBusInsertar.UserInsert = "Roberto";
-            miniBusInsertar.UserModifies = "Roberto";
-
-            MiniBusDTO miniBusDTOInsertar = A.Fake<MiniBusDTO>();
+            MiniBusDTO miniBusDTOInsertar = new MiniBusDTO();
             miniBusDTOInsertar.Id = 0;
             miniBusDTOInsertar.IdCompany = 2;
             miniBusDTOInsertar.Capacity = "20";
@@ -188,7 +173,7 @@ namespace MiniBusManagement.Test
 
             var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 201;
-            mockMiniBusService.Setup(c => c.InsertMinibus(miniBusInsertar, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
+            mockMiniBusService.Setup(c => c.InsertMinibus(It.IsAny<MiniBus>( ),"Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
             var controller = new MiniBusController(mockMiniBusService.Object, _options);
             var actionResult = await controller.InsertMiniBus(miniBusDTOInsertar);
             var actualResult = actionResult as StatusCodeResult;
@@ -196,7 +181,7 @@ namespace MiniBusManagement.Test
             Assert.True(actualResult is StatusCodeResult);
             Assert.NotNull(actualResult);
             Assert.NotEqual(0, actualResult.StatusCode);
-            Assert.Equal(500, actualResult.StatusCode);
+            Assert.Equal(201, actualResult.StatusCode);
         }
     }
 }
