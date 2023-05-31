@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Repository.Data;
 using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Repository.Administration;
-using Microsoft.Extensions.Configuration;
 using MiniBusManagement.Api;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +30,7 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
-var ambiente = app.Environment.EnvironmentName.ToLower();
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseSwagger();
