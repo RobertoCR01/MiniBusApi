@@ -51,8 +51,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
-                    _logger.LogError("Error Exeption");
-                    throw new Exception("Something went wrong.");
                     var todo = _options.CurrentValue.SecretKey;
                     return BadRequest("invalid id");
                 };
@@ -67,7 +65,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 return Ok(minibusDTO);
             } catch (Exception ex)
             {
-                _logger.LogError(ex.StackTrace);
                 return BadRequest(ex.Message);
                 //return StatusCode(StatusCodes.Status500InternalServerError, "Error interno en el servidor");
             }
@@ -116,15 +113,12 @@ namespace MiniBusManagement.Api.Controllers.Administration
             try
             {
                 int result = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
-                switch (result)
+                return result switch
                 {
-                    case 204:
-                        return NoContent();
-                    case 404:
-                        return NotFound();
-                    default:
-                        return StatusCode(StatusCodes.Status500InternalServerError);
-                }
+                    204 => NoContent(),
+                    404 => NotFound(),
+                    _ => StatusCode(StatusCodes.Status500InternalServerError),
+                };
 
             } catch (Exception)
             {
@@ -167,14 +161,12 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 }
                 MiniBus minibus = _mapper.MinibusDtoToMiniBus(miniBusProcesar);
                 int result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
-                switch (result) {
-                    case 204:
-                        return NoContent();
-                    case 404:
-                        return NotFound();
-                    default:
-                        return StatusCode(StatusCodes.Status500InternalServerError);
-                }
+                return result switch
+                {
+                    204 => NoContent(),
+                    404 => NotFound(),
+                    _ => StatusCode(StatusCodes.Status500InternalServerError),
+                };
             } catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);

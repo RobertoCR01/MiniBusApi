@@ -8,16 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 using MiniBusManagement.Domain.Models.Administration;
 using Moq;
 using Xunit;
+using Microsoft.Extensions.Logging;
 
 namespace MiniBusManagement.Test
 {
     public class MiniBusControllerTest
     {
         private readonly IOptionsMonitor<JwtOptions> _options;
+        private readonly ILogger<MiniBusController> _logger;
         public MiniBusControllerTest()
         {
             _options = A.Fake<IOptionsMonitor<JwtOptions>>();
-        }
+            _logger = A.Fake<ILogger<MiniBusController>>();
+    }
 
         [Fact]
         public async Task TestMiniBusControllerGetSucces()
@@ -28,7 +31,7 @@ namespace MiniBusManagement.Test
 
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMinibus("Roberto", It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options,_logger);
             var actionResult = await controller.GetMiniBuses();
             Assert.NotNull(actionResult);
             var result = actionResult.Result;
@@ -67,7 +70,7 @@ namespace MiniBusManagement.Test
             int miniBusId = 1;
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger );
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is ObjectResult || actionResult is StatusCodeResult);
@@ -101,7 +104,7 @@ namespace MiniBusManagement.Test
             int miniBusId = 5;
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger);
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is NotFoundObjectResult);
@@ -122,7 +125,7 @@ namespace MiniBusManagement.Test
             int miniBusId = 0;
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger);
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is BadRequestObjectResult);
@@ -146,11 +149,12 @@ namespace MiniBusManagement.Test
             var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 204;
             mockMiniBusService.Setup(c => c.DeleteMinibus(miniBusInsertar.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger);
             var actionResult = await controller.DeleteMiniBus(miniBusInsertar.Id);
+            Assert.NotNull(actionResult);
             var actualResult = actionResult as StatusCodeResult;
             Assert.NotNull(actualResult);
-            Assert.True(actualResult is StatusCodeResult);
+            Assert.True(actualResult is not null);
             Assert.NotNull(actualResult);
             Assert.NotEqual(0, actualResult.StatusCode);
             Assert.Equal(204, actualResult.StatusCode);
@@ -160,25 +164,27 @@ namespace MiniBusManagement.Test
         [Fact]
         public async Task TestMiniBusControllerInsertMiniBusSuccess()
         {
-            MiniBusDTO miniBusDTOInsertar = new MiniBusDTO();
-            miniBusDTOInsertar.Id = 0;
-            miniBusDTOInsertar.IdCompany = 2;
-            miniBusDTOInsertar.Capacity = "20";
-            miniBusDTOInsertar.Brand = "Toyota";
-            miniBusDTOInsertar.Year = 2020;
-            miniBusDTOInsertar.ModificationDate = It.IsAny<DateTime>();
-            miniBusDTOInsertar.InsertionDate = It.IsAny<DateTime>();
-            miniBusDTOInsertar.UserInsert = "Roberto";
-            miniBusDTOInsertar.UserModifies = "Roberto";
+            MiniBusDTO miniBusDTOInsertar = new()
+            {
+                Id = 0,
+                IdCompany = 2,
+                Capacity = "20",
+                Brand = "Toyota",
+                Year = 2020,
+                ModificationDate = It.IsAny<DateTime>(),
+                InsertionDate = It.IsAny<DateTime>(),
+                UserInsert = "Roberto",
+                UserModifies = "Roberto"
+            };
 
             var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 201;
             mockMiniBusService.Setup(c => c.InsertMinibus(It.IsAny<MiniBus>( ),"Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger);
             var actionResult = await controller.InsertMiniBus(miniBusDTOInsertar);
+            Assert.NotNull(actionResult);
             var actualResult = actionResult as StatusCodeResult;
-            Assert.NotNull(actualResult);
-            Assert.True(actualResult is StatusCodeResult);
+             Assert.True(actualResult is not null);
             Assert.NotNull(actualResult);
             Assert.NotEqual(0, actualResult.StatusCode);
             Assert.Equal(201, actualResult.StatusCode);
