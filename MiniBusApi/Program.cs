@@ -3,6 +3,8 @@ using MiniBusManagement.Repository.Data;
 using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Repository.Administration;
 using MiniBusManagement.Api;
+using Microsoft.Extensions.Logging.ApplicationInsights;
+using Microsoft.ApplicationInsights.DependencyCollector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +25,18 @@ builder.Services.AddScoped<IMiniBusService, MiniBusService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<JwtOptions>(
-    builder.Configuration.GetSection("Jwt"));
+builder.Configuration.GetSection("Jwt"));
+builder.Services.AddApplicationInsightsTelemetry();
+builder.Services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) => { module.EnableSqlCommandTextInstrumentation = true; });
+
+
+builder.Logging.AddApplicationInsights(
+        configureTelemetryConfiguration: (config) =>
+            config.ConnectionString = builder.Configuration.GetConnectionString("APPLICATIONINSIGHTS_CONNECTION_STRING"),
+            configureApplicationInsightsLoggerOptions: (options) => { }
+    );
+
+builder.Logging.AddFilter<ApplicationInsightsLoggerProvider>("MiniBus", LogLevel.Trace);
 
 var app = builder.Build();
 // Services

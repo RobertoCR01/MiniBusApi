@@ -7,6 +7,8 @@ using MiniBusManagement.Api;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -19,12 +21,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly DateTime _date = DateTime.Now;
         private readonly MiniBusMapper _mapper;
         private readonly IOptionsMonitor<JwtOptions> _options;
+        private readonly ILogger _logger;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger)
         {
             _miniBusService = miniBusService;
             _mapper = new MiniBusMapper();
             _options = options;
+            _logger = logger;
         }
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -33,10 +37,22 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMiniBus(int id)
         {
+            var minibusMensaje = new MiniBus() 
+            { Id = 1,
+              Brand= "Toyota",
+              Capacity="20",
+              Year=2020,
+              Tipo="Van"     
+            };
+            _logger.LogInformation("MiniBus:", minibusMensaje);
+            _logger.LogError("Error Prueba", minibusMensaje);
+            _logger.LogWarning("Warning Prueba", minibusMensaje);
             try
             {
                 if (id == 0)
                 {
+                    _logger.LogError("Error Exeption");
+                    throw new Exception("Something went wrong.");
                     var todo = _options.CurrentValue.SecretKey;
                     return BadRequest("invalid id");
                 };
@@ -49,9 +65,11 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     return NotFound("MiniBus does not exist");
                 }
                 return Ok(minibusDTO);
-            } catch (Exception)
+            } catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Error interno en el servidor");
+                _logger.LogError(ex.StackTrace);
+                return BadRequest(ex.Message);
+                //return StatusCode(StatusCodes.Status500InternalServerError, "Error interno en el servidor");
             }
 
         }
