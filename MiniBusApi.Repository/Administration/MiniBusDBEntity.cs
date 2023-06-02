@@ -11,6 +11,7 @@ namespace MiniBusManagement.Repository.Administration
         public int Id { get; set; }
         public int IdCompany { get; set; }
         public string Brand { get; set; } = null!;
+        public string Plate { get; set; } = null!;
         public string Tipo { get; set; } = null!;
         public int Year { get; set; }
         public string Capacity { get; set; } = null!;

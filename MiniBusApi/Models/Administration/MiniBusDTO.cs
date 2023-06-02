@@ -13,6 +13,7 @@ namespace MiniBusManagement.Api.Models.Administration
         [Required]
         [MaxLength(10)]
         public string Brand { get; set; }
+        public string Plate { get; set; }
         public string Tipo { get; set; }
         public int Year { get; set; }
         public string Capacity { get; set; }
