@@ -3,11 +3,10 @@ using MiniBusManagement.Service.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Api.Mapper;
-using MiniBusManagement.Api;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Builder.Extensions;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.IdentityModel.Abstractions;
 using Microsoft.ApplicationInsights.Extensibility;
 
 namespace MiniBusManagement.Api.Controllers.Administration
@@ -37,6 +36,20 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMiniBus(int id)
         {
+            TelemetryClient _telemetryClient = new();
+            _telemetryClient.Context.GlobalProperties["CustomDimension"] = "CustomValue";
+            _telemetryClient.TrackEvent("MyEvent");
+            _telemetryClient.Flush();
+
+            //MetricTelemetry dimensionTelemetry = new()
+            //{
+            //    Name = "CustomDimension",
+            //    Sum = 1 
+            //};
+            //dimensionTelemetry.Properties.Add("PropertyKey", "PropertyValue");
+            //_telemetryClient.TrackMetric(dimensionTelemetry);
+            //_telemetryClient.Flush();
+
             var minibusMensaje = new MiniBus() 
             { Id = 1,
               Brand= "Toyota",
