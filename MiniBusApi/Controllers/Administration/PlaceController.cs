@@ -2,7 +2,7 @@
 using MiniBusManagement.Api.Mapper;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Service.Administration;
+using MiniBusManagement.Services.Administration;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {

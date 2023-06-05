@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MiniBusManagement.Repository.Data;
-using MiniBusManagement.Service.Administration;
-using MiniBusManagement.Repository.Administration;
+using MiniBusManagement.Repositories.Data;
+using MiniBusManagement.Services.Administration;
+using MiniBusManagement.Repositories.Administration;
 using MiniBusManagement.Api;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.ApplicationInsights.DependencyCollector;

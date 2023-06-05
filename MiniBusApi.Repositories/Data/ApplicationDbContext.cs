@@ -1,13 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repository.Administration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MiniBusManagement.Repositories.Administration;
 
-namespace MiniBusManagement.Repository.Data
+namespace MiniBusManagement.Repositories.Data
 {
     public class ApplicationDbContext : DbContext
     {

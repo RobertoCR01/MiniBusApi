@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "MiniBusManagement.Service": {
+    "MiniBusManagement.Services": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

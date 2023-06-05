@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MiniBusManagement.Repository.Migrations
+namespace MiniBusManagement.Repositories.Migrations
 {
     /// <inheritdoc />
     public partial class Migracion01 : Migration

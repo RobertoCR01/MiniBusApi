@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MiniBusApi.Domain\MiniBusManagement.Domain.csproj" />
-    <ProjectReference Include="..\MiniBusApi.Repository\MiniBusManagement.Repository.csproj" />
+    <ProjectReference Include="..\MiniBusApi.Repositories\MiniBusManagement.Repositories.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniBusManagement.Repository.Administration
+namespace MiniBusManagement.Repositories.Administration
 {
     [Table("Places")]
     public class PlaceDBEntity

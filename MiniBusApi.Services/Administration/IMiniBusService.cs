@@ -1,6 +1,6 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
 
-namespace MiniBusManagement.Service.Administration
+namespace MiniBusManagement.Services.Administration
 {
     public interface IMiniBusService
     {

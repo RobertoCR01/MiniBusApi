@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MiniBusManagement.Repository.Administration
+namespace MiniBusManagement.Repositories.Administration
 {
     [Table("Minibuses")]
     public class MiniBusDBEntity 

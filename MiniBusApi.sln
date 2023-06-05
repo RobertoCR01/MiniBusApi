@@ -9,9 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{98F90649-D9F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Domain", "MiniBusApi.Domain\MiniBusManagement.Domain.csproj", "{D81A0194-71B3-4C52-8874-C57FFD27DD41}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Service", "MiniBusApi.Service\MiniBusManagement.Service.csproj", "{948414F6-626C-4247-A0A3-CD8A800D5C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Services", "MiniBusApi.Services\MiniBusManagement.Services.csproj", "{948414F6-626C-4247-A0A3-CD8A800D5C11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Repository", "MiniBusApi.Repository\MiniBusManagement.Repository.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Repositories", "MiniBusApi.Repositories\MiniBusManagement.Repositories.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBusManagement.Test", "MinBusManagement.Test\MiniBusManagement.Test.csproj", "{73242684-5F97-42AD-BEC0-A37B146F3A12}"
 EndProject

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniBusManagement.Service.Administration;
+using MiniBusManagement.Services.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Api.Mapper;

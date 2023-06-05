@@ -1,12 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using MiniBusManagement.Repository.Data;
+using MiniBusManagement.Repositories.Data;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repository.Maps.Administration;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq.Expressions;
 
-namespace MiniBusManagement.Repository.Administration
+namespace MiniBusManagement.Repositories.Administration
 {
     public class MinibusRepository : IMiniBusRepository, IDisposable
     {
