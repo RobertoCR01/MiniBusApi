@@ -29,16 +29,6 @@ builder.Configuration.GetSection("Jwt"));
 
 // Configuracion ApplicationInsights
 
-//aiOptions.EnableAdaptiveSampling = false;
-//aiOptions.EnableQuickPulseMetricStream = false;
-
-
-//builder.Logging.AddApplicationInsights(
-//        configureTelemetryConfiguration: (config) =>
-//            config.ConnectionString = builder.Configuration.GetConnectionString("APPLICATIONINSIGHTS_CONNECTION_STRING"),
-//            configureApplicationInsightsLoggerOptions: (options) => { }
-//    );
-//var aiOptions = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions();
 builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
