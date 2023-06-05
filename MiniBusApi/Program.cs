@@ -26,17 +26,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<JwtOptions>(
 builder.Configuration.GetSection("Jwt"));
+
+// Configuracion ApplicationInsights
+
+//aiOptions.EnableAdaptiveSampling = false;
+//aiOptions.EnableQuickPulseMetricStream = false;
+
+
+//builder.Logging.AddApplicationInsights(
+//        configureTelemetryConfiguration: (config) =>
+//            config.ConnectionString = builder.Configuration.GetConnectionString("APPLICATIONINSIGHTS_CONNECTION_STRING"),
+//            configureApplicationInsightsLoggerOptions: (options) => { }
+//    );
+//var aiOptions = new Microsoft.ApplicationInsights.AspNetCore.Extensions.ApplicationInsightsServiceOptions();
 builder.Services.AddApplicationInsightsTelemetry();
-builder.Services.ConfigureTelemetryModule<DependencyTrackingTelemetryModule>((module, o) => { module.EnableSqlCommandTextInstrumentation = true; });
-
-
-builder.Logging.AddApplicationInsights(
-        configureTelemetryConfiguration: (config) =>
-            config.ConnectionString = builder.Configuration.GetConnectionString("APPLICATIONINSIGHTS_CONNECTION_STRING"),
-            configureApplicationInsightsLoggerOptions: (options) => { }
-    );
-
-builder.Logging.AddFilter<ApplicationInsightsLoggerProvider>("MiniBus", LogLevel.Trace);
 
 var app = builder.Build();
 // Services

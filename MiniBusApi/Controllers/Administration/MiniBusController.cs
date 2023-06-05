@@ -21,13 +21,15 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly MiniBusMapper _mapper;
         private readonly IOptionsMonitor<JwtOptions> _options;
         private readonly ILogger _logger;
+        private readonly TelemetryClient _telemetryClient;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger, TelemetryClient telemetryClient)
         {
             _miniBusService = miniBusService;
             _mapper = new MiniBusMapper();
             _options = options;
             _logger = logger;
+            _telemetryClient = telemetryClient;
         }
         [HttpGet("{id:int}", Name = "GetMiniBus")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -36,26 +38,26 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMiniBus(int id)
         {
-            TelemetryClient _telemetryClient = new();
-            _telemetryClient.Context.GlobalProperties["CustomDimension"] = "CustomValue";
-            _telemetryClient.TrackEvent("MyEvent");
-            _telemetryClient.Flush();
+              //_telemetryClient.Context.GlobalProperties["CustomDimension"] = "CustomValue";
+            //_telemetryClient.TrackEvent("MyEvent");
+            //_telemetryClient.Flush();
 
             //MetricTelemetry dimensionTelemetry = new()
             //{
             //    Name = "CustomDimension",
-            //    Sum = 1 
+            //    Sum = 1
             //};
             //dimensionTelemetry.Properties.Add("PropertyKey", "PropertyValue");
             //_telemetryClient.TrackMetric(dimensionTelemetry);
             //_telemetryClient.Flush();
 
-            var minibusMensaje = new MiniBus() 
-            { Id = 1,
-              Brand= "Toyota",
-              Capacity="20",
-              Year=2020,
-              Tipo="Van"     
+            var minibusMensaje = new MiniBus()
+            {
+                Id = 1,
+                Brand = "Toyota",
+                Capacity = "20",
+                Year = 2020,
+                Tipo = "Van"
             };
             _logger.LogInformation("MiniBus:", minibusMensaje);
             _logger.LogError("Error Prueba", minibusMensaje);
@@ -75,8 +77,15 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 {
                     return NotFound("MiniBus does not exist");
                 }
+                var customDimensions = new Dictionary<string, string>
+                {
+                    { "Plate", minibusDTO.Plate},
+                    { "Brand", minibusDTO.Brand}
+                };
+                _telemetryClient.TrackEvent("MiniBusEvent", customDimensions);
                 return Ok(minibusDTO);
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
                 //return StatusCode(StatusCodes.Status500InternalServerError, "Error interno en el servidor");
@@ -107,11 +116,13 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 if (result == 201)
                 {
                     return StatusCode(StatusCodes.Status201Created);
-                } else
+                }
+                else
                 {
                     return StatusCode(StatusCodes.Status500InternalServerError);
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -133,7 +144,8 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     _ => StatusCode(StatusCodes.Status500InternalServerError),
                 };
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
@@ -148,7 +160,9 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 var minibuses = await _miniBusService.GetMinibus(_user, _date);
                 return Ok(minibuses);
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
@@ -180,12 +194,13 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     404 => NotFound(),
                     _ => StatusCode(StatusCodes.Status500InternalServerError),
                 };
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
 
-             
+
         }
     }
 }
