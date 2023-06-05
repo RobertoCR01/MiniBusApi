@@ -2,12 +2,12 @@
 using MiniBusManagement.Services.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Api.Models.Administration;
-using MiniBusManagement.Api.Mapper;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.DataContracts;
 using Microsoft.IdentityModel.Abstractions;
 using Microsoft.ApplicationInsights.Extensibility;
+using MiniBusManagement.Api.Mapper.Administration;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {

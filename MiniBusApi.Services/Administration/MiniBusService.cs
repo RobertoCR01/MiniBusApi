@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repositories.Administration;
+using MiniBusManagement.Repositories.Data.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

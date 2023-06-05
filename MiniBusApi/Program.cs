@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using MiniBusManagement.Repositories.Data;
 using MiniBusManagement.Services.Administration;
-using MiniBusManagement.Repositories.Administration;
 using MiniBusManagement.Api;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.ApplicationInsights.DependencyCollector;
+using MiniBusManagement.Repositories;
+using MiniBusManagement.Repositories.Data.Administration;
 
 var builder = WebApplication.CreateBuilder(args);
 

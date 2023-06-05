@@ -1,11 +1,11 @@
 ﻿using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 
-namespace MiniBusManagement.Api.Mapper;
+namespace MiniBusManagement.Api.Mapper.Administration;
 
 public class MiniBusMapper
 {
-    public  MiniBus MinibusDtoToMiniBus(MiniBusDTO miniBusDTO)
+    public MiniBus MinibusDtoToMiniBus(MiniBusDTO miniBusDTO)
     {
         if (miniBusDTO != null)
         {

@@ -1,12 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using MiniBusManagement.Repositories.Data;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repository.Maps.Administration;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Linq.Expressions;
+using MiniBusManagement.Repositories.Entities.Administration;
 
-namespace MiniBusManagement.Repositories.Administration
+namespace MiniBusManagement.Repositories.Data.Administration
 {
     public class MinibusRepository : IMiniBusRepository, IDisposable
     {
@@ -20,19 +20,22 @@ namespace MiniBusManagement.Repositories.Administration
 
         public async Task<int> DeleteMinibus(int minibusID)
         {
-            try {
+            try
+            {
                 MiniBusDBEntity? miniBus = _db.Minibuses.FirstOrDefault(u => u.Id == minibusID);
                 if (miniBus == null)
                 {
                     return 404;
-                } else
-                { 
+                }
+                else
+                {
                     _db.Minibuses.Remove(miniBus);
                     _db.SaveChanges();
                     MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
                     return 204;
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return 500;
             }
@@ -54,7 +57,8 @@ namespace MiniBusManagement.Repositories.Administration
                     minBusDomain.Add(_mapper.MinibusToMiniBusDomain(minibus));
                 }
                 return minBusDomain;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return new List<MiniBus>();
             }
@@ -68,7 +72,8 @@ namespace MiniBusManagement.Repositories.Administration
             {
                 MiniBus minBusDomain = new();
                 return minBusDomain;
-            } else
+            }
+            else
             {
                 MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
                 return miniBusDomain;
@@ -109,7 +114,8 @@ namespace MiniBusManagement.Repositories.Administration
                 _db.SaveChanges();
                 MiniBus miniBusDomain = _mapper.MinibusToMiniBusDomain(miniBus);
                 return 204;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return 500;
             }

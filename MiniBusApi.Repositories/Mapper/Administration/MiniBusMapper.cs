@@ -1,5 +1,5 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repositories.Administration;
+using MiniBusManagement.Repositories.Entities.Administration;
 
 namespace MiniBusManagement.Repository.Maps.Administration
 {

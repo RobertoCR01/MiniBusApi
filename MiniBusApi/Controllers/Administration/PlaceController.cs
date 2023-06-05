@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MiniBusManagement.Api.Mapper;
+using MiniBusManagement.Api.Mapper.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Services.Administration;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
-        [Route("api/places")]
+    [Route("api/places")]
         [ApiController]
         public class PlaceController : ControllerBase
         {

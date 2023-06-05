@@ -1,17 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repositories.Administration;
+using MiniBusManagement.Repositories.Entities.Administration;
 
-namespace MiniBusManagement.Repositories.Data
+namespace MiniBusManagement.Repositories
 {
     public class ApplicationDbContext : DbContext
     {
         public readonly DbSet<MiniBus> MiniBuses;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base (options)
-        { 
-        
+            : base(options)
+        {
+
         }
         public DbSet<MiniBusDBEntity> Minibuses { get; set; }
         public DbSet<PlaceDBEntity> Places { get; set; }

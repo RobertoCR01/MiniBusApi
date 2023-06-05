@@ -1,7 +1,7 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
 
 
-namespace MiniBusManagement.Repositories.Administration
+namespace MiniBusManagement.Repositories.Data.Administration
 {
     public interface IMiniBusRepository : IDisposable
     {

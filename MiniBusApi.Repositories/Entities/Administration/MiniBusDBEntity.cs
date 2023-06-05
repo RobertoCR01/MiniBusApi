@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MiniBusManagement.Repositories.Administration
+namespace MiniBusManagement.Repositories.Entities.Administration
 {
     [Table("Minibuses")]
-    public class MiniBusDBEntity 
+    public class MiniBusDBEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
