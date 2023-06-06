@@ -1,18 +1,21 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Entities.Administration;
+using MiniBusManagement.Repositories.Mapper.Administration;
 
 namespace MiniBusManagement.Repository.Maps.Administration
 {
     public class MiniBusMapper
     {
+        CompanyMapper companyMapper = new CompanyMapper();
         public  MiniBus MinibusToMiniBusDomain(MiniBusDBEntity miniBus)
+           
         {
             if (miniBus != null)
             {
                 return new MiniBus
                 {
                     Id = miniBus.Id,
-                    IdCompany = miniBus.IdCompany,
+                    Company = companyMapper.CompanyToCompanyDomain(miniBus.Company),
                     Brand = miniBus.Brand,
                     Plate = miniBus.Plate,
                     Tipo = miniBus.Tipo,
@@ -30,11 +33,12 @@ namespace MiniBusManagement.Repository.Maps.Administration
         public MiniBusDBEntity MinibusDomainToMiniBus(MiniBus miniBusDomain)
         {
             if (miniBusDomain != null)
+          
             {
                 return new MiniBusDBEntity
                 {
                     Id = miniBusDomain.Id,
-                    IdCompany = miniBusDomain.IdCompany,
+                    //IdCompany = miniBusDomain.IdCompany,
                     Brand = miniBusDomain.Brand,
                     Plate = miniBusDomain.Plate,
                     Tipo = miniBusDomain.Tipo,

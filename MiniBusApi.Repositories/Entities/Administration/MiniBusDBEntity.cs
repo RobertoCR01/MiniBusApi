@@ -9,12 +9,14 @@ namespace MiniBusManagement.Repositories.Entities.Administration
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public int IdCompany { get; set; }
-        public string Brand { get; set; } = null!;
-        public string Plate { get; set; } = null!;
-        public string Tipo { get; set; } = null!;
+        [Required]
+        [Column("companyId")]
+        public CompanyDBEntity? Company { get; set; }
+        public string? Brand { get; set; }
+        public string? Plate { get; set; }
+        public string? Tipo { get; set; }
         public int Year { get; set; }
-        public string Capacity { get; set; } = null!;
+        public int Capacity { get; set; }
         public string? UserInsert { get; set; }
         public DateTime? InsertionDate { get; set; }
         public string? UserModifies { get; set; }

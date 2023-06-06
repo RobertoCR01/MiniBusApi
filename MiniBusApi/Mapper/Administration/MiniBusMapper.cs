@@ -5,6 +5,7 @@ namespace MiniBusManagement.Api.Mapper.Administration;
 
 public class MiniBusMapper
 {
+    CompanyMapper companyMapper = new CompanyMapper();
     public MiniBus MinibusDtoToMiniBus(MiniBusDTO miniBusDTO)
     {
         if (miniBusDTO != null)
@@ -12,7 +13,7 @@ public class MiniBusMapper
             return new MiniBus
             {
                 Id = miniBusDTO.Id,
-                IdCompany = miniBusDTO.IdCompany,
+                Company = companyMapper.CompanyDtoToCompany(miniBusDTO.Company),
                 Brand = miniBusDTO.Brand,
                 Plate = miniBusDTO.Plate,
                 Tipo = miniBusDTO.Tipo,
@@ -34,7 +35,7 @@ public class MiniBusMapper
             return new MiniBusDTO
             {
                 Id = miniBus.Id,
-                IdCompany = miniBus.IdCompany,
+                Company = companyMapper.CompanyToCompanyDto(miniBus.Company),
                 Brand = miniBus.Brand,
                 Plate = miniBus.Plate,
                 Tipo = miniBus.Tipo,
