@@ -9,9 +9,9 @@ namespace MiniBusManagement.Repositories.Entities.Administration
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        //[ForeignKey("CompanyId")]
-      //  public CompanyDBEntity? CompanyId { get; set; }
-        //public int ? CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public CompanyDBEntity? Company { get; set; }
+        public int ? CompanyId { get; set; }
         public string? Brand { get; set; }
         public string? Plate { get; set; }
         public string? Tipo { get; set; }
