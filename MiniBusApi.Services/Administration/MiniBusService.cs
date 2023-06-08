@@ -52,7 +52,6 @@ namespace MiniBusManagement.Services.Administration
             try
             {
                 MiniBus minibusActual = await _miniBusRepository.GetMinibusByID(minibusID);
-                minibusActual.IdCompany = minibusUpdated.IdCompany;
                 minibusActual.Brand = minibusUpdated.Brand;
                 minibusActual.Tipo = minibusUpdated.Tipo;
                 minibusActual.Year = minibusUpdated.Year;

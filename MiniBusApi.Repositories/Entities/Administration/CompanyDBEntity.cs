@@ -13,7 +13,7 @@ namespace MiniBusManagement.Repositories.Entities.Administration
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]

@@ -4,10 +4,7 @@ using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.DataContracts;
-using Microsoft.IdentityModel.Abstractions;
-using Microsoft.ApplicationInsights.Extensibility;
-using MiniBusManagement.Api.Mapper.Administration;
+using AutoMapper;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -18,15 +15,16 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly IMiniBusService _miniBusService;
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
-        private readonly MiniBusMapper _mapper;
+        private readonly IMapper _mapper;
         private readonly IOptionsMonitor<JwtOptions> _options;
         private readonly ILogger _logger;
         private readonly TelemetryClient _telemetryClient;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger, TelemetryClient telemetryClient)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger, TelemetryClient telemetryClient,
+             IMapper mapper)
         {
             _miniBusService = miniBusService;
-            _mapper = new MiniBusMapper();
+            _mapper = mapper;
             _options = options;
             _logger = logger;
             _telemetryClient = telemetryClient;
@@ -55,7 +53,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 Id = 1,
                 Brand = "Toyota",
-                Capacity = "20",
+                Capacity = 20,
                 Year = 2020,
                 Tipo = "Van"
             };
@@ -71,7 +69,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 };
 
                 MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
-                MiniBusDTO minibusDTO = _mapper.MinibusToMiniBusDto(minibus);
+                MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
                 if (minibusDTO.Id == 0)
                 {
@@ -110,7 +108,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     return BadRequest();
                 }
 
-                MiniBus minibus = _mapper.MinibusDtoToMiniBus(minibusProcesar);
+                MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
 
                 int result = await _miniBusService.InsertMinibus(minibus, _user, _date);
                 if (result == 201)
@@ -186,7 +184,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 {
                     return Conflict("Different Ids");
                 }
-                MiniBus minibus = _mapper.MinibusDtoToMiniBus(miniBusProcesar);
+                MiniBus minibus = _mapper.Map<MiniBus>(miniBusProcesar);
                 int result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
                 return result switch
                 {
