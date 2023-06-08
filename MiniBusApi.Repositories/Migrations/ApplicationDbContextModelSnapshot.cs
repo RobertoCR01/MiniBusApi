@@ -87,8 +87,8 @@ namespace MiniBusManagement.Repositories.Migrations
                             ContactName = "Roberto Diaz",
                             ContactNumber = "2655666",
                             Email = "Roberto@gmail.com",
-                            InsertionDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9070),
-                            ModificationDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9123),
+                            InsertionDate = new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9510),
+                            ModificationDate = new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9571),
                             Name = "Prueba",
                             Phone = "25655656",
                             UserInsert = "Roberto",
@@ -146,47 +146,10 @@ namespace MiniBusManagement.Repositories.Migrations
                             Id = 1,
                             Brand = "Toyota",
                             Capacity = 3,
-                            CompanyId = 1,
-                            InsertionDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9231),
-                            ModificationDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9233),
+                            InsertionDate = new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9674),
+                            ModificationDate = new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9676),
                             Plate = "PAK715",
                             Tipo = "Van",
-                            Year = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Brand = "Mazada",
-                            Capacity = 6,
-                            CompanyId = 1,
-                            InsertionDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9235),
-                            ModificationDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9236),
-                            Plate = "CL1715",
-                            Tipo = "Car",
-                            Year = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Brand = "Isuzu",
-                            Capacity = 7,
-                            CompanyId = 1,
-                            InsertionDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9238),
-                            ModificationDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9239),
-                            Plate = "BUS715",
-                            Tipo = "Bus",
-                            Year = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Brand = "Ford",
-                            Capacity = 8,
-                            CompanyId = 1,
-                            InsertionDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9276),
-                            ModificationDate = new DateTime(2023, 6, 8, 12, 5, 1, 186, DateTimeKind.Local).AddTicks(9278),
-                            Plate = "625630",
-                            Tipo = "Tri",
                             Year = 0
                         });
                 });

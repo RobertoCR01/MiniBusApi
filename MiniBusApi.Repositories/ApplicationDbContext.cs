@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Entities.Administration;
+using System.Net;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace MiniBusManagement.Repositories
@@ -40,44 +41,10 @@ namespace MiniBusManagement.Repositories
                new MiniBusDBEntity
                {
                    Id = 1,
-                   //CompanyId = 1,
                    Brand = "Toyota",
                    Plate = "PAK715",
                    Capacity = 3,
                    Tipo = "Van",
-                   InsertionDate = DateTime.Now,
-                   ModificationDate = DateTime.Now
-               },
-               new MiniBusDBEntity
-               {
-                   Id = 2,
-                  // CompanyId  = 1,
-                   Brand = "Mazada",
-                   Plate = "CL1715",
-                   Capacity = 6,
-                   Tipo = "Car",
-                   InsertionDate = DateTime.Now,
-                   ModificationDate = DateTime.Now
-               },
-               new MiniBusDBEntity
-               {
-                   Id = 3,
-                  // CompanyId = 1,
-                   Brand = "Isuzu",
-                   Plate = "BUS715",
-                   Capacity = 7,
-                   Tipo = "Bus",
-                   InsertionDate = DateTime.Now,
-                   ModificationDate = DateTime.Now
-               },
-               new MiniBusDBEntity
-               {
-                   Id = 4,
-                   //CompanyId = 1,
-                   Brand = "Ford",
-                   Plate = "625630",
-                   Capacity = 8,
-                   Tipo = "Tri",
                    InsertionDate = DateTime.Now,
                    ModificationDate = DateTime.Now
                }
