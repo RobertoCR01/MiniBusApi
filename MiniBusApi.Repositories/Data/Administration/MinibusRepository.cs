@@ -48,7 +48,7 @@ namespace MiniBusManagement.Repositories.Data.Administration
         {
             try
             {
-                var minibuses = _db.Minibuses.ToList();
+                var minibuses = _db.Minibuses.Include(p => p.Company).ToList();
                 List<MiniBus> minBusDomain = new();
                 foreach (MiniBusDBEntity minibusList in minibuses)
                 {
@@ -73,6 +73,11 @@ namespace MiniBusManagement.Repositories.Data.Administration
             }
             else
             {
+                CompanyDBEntity? company = await _db.Companies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == miniBus.Id);
+                if (company != null)
+                {
+                    miniBus.Company = company;  
+                }
                 MiniBus miniBusDomain = _mapper.Map<MiniBus>(miniBus);
                 return miniBusDomain;
             }

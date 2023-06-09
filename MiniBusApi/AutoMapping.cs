@@ -9,10 +9,17 @@ namespace MiniBusManagement.Api
     {
         public AutoMapping()
         {
+            //Minibus
             CreateMap<MiniBus, MiniBusDTO>();
             CreateMap<MiniBusDTO, MiniBus>();
             CreateMap<MiniBus, MiniBusDBEntity>();
             CreateMap<MiniBusDBEntity, MiniBus>();
+            //Compamy
+            CreateMap<Company, CompanyDTO>();
+            CreateMap<CompanyDTO, Company>();
+            CreateMap<Company, CompanyDBEntity>();
+            CreateMap<CompanyDBEntity, Company>();
+           
         }
 
     }

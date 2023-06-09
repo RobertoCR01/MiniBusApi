@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace MiniBusManagement.Repositories.Migrations
 {
     /// <inheritdoc />
@@ -64,12 +66,18 @@ namespace MiniBusManagement.Repositories.Migrations
             migrationBuilder.InsertData(
                 table: "Companies",
                 columns: new[] { "Id", "Address", "City", "ContactName", "ContactNumber", "Email", "InsertionDate", "ModificationDate", "Name", "Phone", "UserInsert", "UserModifies" },
-                values: new object[] { 1, "359 Avon", "San Jose", "Roberto Diaz", "2655666", "Roberto@gmail.com", new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9510), new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9571), "Prueba", "25655656", "Roberto", "RobertoM" });
+                values: new object[] { 1, "359 Avon", "San Jose", "Roberto Diaz", "2655666", "Roberto@gmail.com", new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(100), new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(157), "Prueba", "25655656", "Roberto", "RobertoM" });
 
             migrationBuilder.InsertData(
                 table: "Minibuses",
                 columns: new[] { "Id", "Brand", "Capacity", "CompanyId", "InsertionDate", "ModificationDate", "Plate", "Tipo", "UserInsert", "UserModifies", "Year" },
-                values: new object[] { 1, "Toyota", 3, null, new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9674), new DateTime(2023, 6, 9, 10, 55, 55, 901, DateTimeKind.Local).AddTicks(9676), "PAK715", "Van", null, null, 0 });
+                values: new object[,]
+                {
+                    { 1, "Toyota", 3, null, new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(275), new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(277), "PAK715", "Van", null, null, 0 },
+                    { 2, "Mazada", 6, null, new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(279), new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(281), "CL1715", "Car", null, null, 0 },
+                    { 3, "Isuzu", 7, null, new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(282), new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(284), "BUS715", "Bus", null, null, 0 },
+                    { 4, "Ford", 8, null, new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(286), new DateTime(2023, 6, 9, 11, 44, 40, 73, DateTimeKind.Local).AddTicks(287), "625630", "Tri", null, null, 0 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Minibuses_CompanyId",
