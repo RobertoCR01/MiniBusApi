@@ -15,8 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultSQLConnection"));
 });
 
-builder.Services.AddControllers(options => { 
-//    options.ReturnHttpNotAcceptable = true; 
+builder.Services.AddControllers(options =>
+{
+    //    options.ReturnHttpNotAcceptable = true; 
 }).AddNewtonsoftJson(options =>
       options.SerializerSettings.ReferenceLoopHandling =
         Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -31,7 +32,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<JwtOptions>(
-builder.Configuration.GetSection("JwtPrueba"));
+    builder.Configuration.GetSection("JwtPrueba")
+);
 
 
 

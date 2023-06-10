@@ -5,6 +5,7 @@ using MiniBusManagement.Api.Models.Administration;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using AutoMapper;
+using Newtonsoft.Json;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -17,7 +18,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly DateTime _date = DateTime.Now;
         private readonly IMapper _mapper;
         private readonly IOptionsMonitor<JwtOptions> _options;
-        private readonly ILogger _logger;
+        private readonly ILogger<MiniBusController> _logger;
         private readonly TelemetryClient _telemetryClient;
 
         public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger, TelemetryClient telemetryClient,
@@ -29,7 +30,8 @@ namespace MiniBusManagement.Api.Controllers.Administration
             _logger = logger;
             _telemetryClient = telemetryClient;
         }
-        [HttpGet("{id:int}", Name = "GetMiniBus")]
+
+        [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -60,6 +62,19 @@ namespace MiniBusManagement.Api.Controllers.Administration
             _logger.LogInformation("MiniBus:", minibusMensaje);
             _logger.LogError("Error Prueba", minibusMensaje);
             _logger.LogWarning("Warning Prueba", minibusMensaje);
+            _logger.LogInformation("Usando JSON",JsonConvert.SerializeObject(minibusMensaje));
+
+            var custProps = new Dictionary<string, object>()
+                {
+                    { "CustPropOne", "123456-7890123"},
+                    { "CustPropTwo", "blah blah blah"},
+                    { "CustNumber", 12345}
+                };
+
+            using (_logger.BeginScope(custProps))
+            {
+                _logger.LogInformation("this is a message without a template");
+            }
             try
             {
                 if (id == 0)
