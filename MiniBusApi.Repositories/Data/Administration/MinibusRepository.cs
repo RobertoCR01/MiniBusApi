@@ -65,7 +65,7 @@ namespace MiniBusManagement.Repositories.Data.Administration
 
         public async Task<MiniBus> GetMinibusByID(int minibusID)
         {
-            MiniBusDBEntity? miniBus = await _db.Minibuses.AsNoTracking().FirstOrDefaultAsync(m => m.Id == minibusID);
+            MiniBusDBEntity? miniBus = await _db.Minibuses.AsNoTracking().Include(p => p.Company).FirstOrDefaultAsync(m => m.Id == minibusID);
             if (miniBus == null)
             {
                 MiniBus minBusDomain = new();
@@ -73,11 +73,11 @@ namespace MiniBusManagement.Repositories.Data.Administration
             }
             else
             {
-                CompanyDBEntity? company = await _db.Companies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == miniBus.Id);
-                if (company != null)
-                {
-                    miniBus.Company = company;  
-                }
+                //CompanyDBEntity? company = await _db.Companies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == miniBus.Id);
+                //if (company != null)
+                //{
+                //    miniBus.Company = company;  
+                //}
                 MiniBus miniBusDomain = _mapper.Map<MiniBus>(miniBus);
                 return miniBusDomain;
             }

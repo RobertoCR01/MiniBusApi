@@ -1,0 +1,7 @@
+{
+  "JwtPrueba": {
+    "Issuer": "Prueba",
+    "Audience": "Roberto",
+    "SecretKey": "Diaz"
+  }
+}

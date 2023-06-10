@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace MiniBusManagement.Domain.Models.Administration
 {
-    [Table("Companies")]
     public class Company
     {
         public int Id { get; set; }
