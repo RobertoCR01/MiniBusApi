@@ -6,6 +6,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using AutoMapper;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -21,15 +23,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly ILogger<MiniBusController> _logger;
         private readonly TelemetryClient _telemetryClient;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger, TelemetryClient telemetryClient,
-             IMapper mapper)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<JwtOptions> options, ILogger<MiniBusController> logger,IMapper mapper)
         {
             _miniBusService = miniBusService;
             _mapper = mapper;
             _options = options;
             _logger = logger;
-            _telemetryClient = telemetryClient;
         }
+
 
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -38,43 +39,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetMiniBus(int id)
         {
-              //_telemetryClient.Context.GlobalProperties["CustomDimension"] = "CustomValue";
-            //_telemetryClient.TrackEvent("MyEvent");
-            //_telemetryClient.Flush();
 
-            //MetricTelemetry dimensionTelemetry = new()
-            //{
-            //    Name = "CustomDimension",
-            //    Sum = 1
-            //};
-            //dimensionTelemetry.Properties.Add("PropertyKey", "PropertyValue");
-            //_telemetryClient.TrackMetric(dimensionTelemetry);
-            //_telemetryClient.Flush();
-
-            var minibusMensaje = new MiniBus()
-            {
-                Id = 1,
-                Brand = "Toyota",
-                Capacity = 20,
-                Year = 2020,
-                Tipo = "Van"
-            };
-            _logger.LogInformation("MiniBus:", minibusMensaje);
-            _logger.LogError("Error Prueba", minibusMensaje);
-            _logger.LogWarning("Warning Prueba", minibusMensaje);
-            _logger.LogInformation("Usando JSON",JsonConvert.SerializeObject(minibusMensaje));
-
-            var custProps = new Dictionary<string, object>()
-                {
-                    { "CustPropOne", "123456-7890123"},
-                    { "CustPropTwo", "blah blah blah"},
-                    { "CustNumber", 12345}
-                };
-
-            using (_logger.BeginScope(custProps))
-            {
-                _logger.LogInformation("this is a message without a template");
-            }
             try
             {
                 if (id == 0)
@@ -90,12 +55,14 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 {
                     return NotFound("MiniBus does not exist");
                 }
-                var customDimensions = new Dictionary<string, string>
+                var messageProperties = new Dictionary<string, object>()
                 {
+                    { "Class","MiniBusController"},
+                    { "Id",minibusDTO.Id },
                     { "Plate", minibusDTO.Plate},
                     { "Brand", minibusDTO.Brand}
                 };
-                _telemetryClient.TrackEvent("MiniBusEvent", customDimensions);
+                _logger.LogControllerInformation("Minibus Information", messageProperties);
                 return Ok(minibusDTO);
             }
             catch (Exception ex)
@@ -215,5 +182,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
 
         }
+
     }
 }

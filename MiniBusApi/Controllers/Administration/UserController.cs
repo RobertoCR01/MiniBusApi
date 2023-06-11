@@ -19,14 +19,13 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly IOptionsMonitor<JwtOptions> _options;
         private readonly ILogger _logger;
         private readonly TelemetryClient _telemetryClient;
-        public UserController(IUserService userService, IOptionsMonitor<JwtOptions> options, ILogger<UserController> logger, TelemetryClient telemetryClient,
+        public UserController(IUserService userService, IOptionsMonitor<JwtOptions> options, ILogger<UserController> logger,
             IMapper mapper)
         {
             _userService = userService;
             _mapper = mapper;
             _options = options;
             _logger = logger;
-            _telemetryClient = telemetryClient;
         }
 
         [HttpGet("{id:int}", Name = "GetUser")]
@@ -52,6 +51,15 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 {
                     return NotFound("User does not exist");
                 }
+                var messageProperties = new Dictionary<string, object>()
+                {
+                    { "Class","UserController"},
+                    { "Id",userDTO.Id },
+                    { "UserName", userDTO.UserName},
+                    { "UserPhone", userDTO.UserPhone},
+                    { "CompanyName", userDTO.Company.Name}
+                };
+                _logger.LogControllerInformation("Minibus Information", messageProperties);
                 return Ok(userDTO);
             }
             catch (Exception ex)
