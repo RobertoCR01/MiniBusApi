@@ -3,7 +3,7 @@ using AutoMapper;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Entities.Administration;
 
-namespace MiniBusManagement.Repositories.Data.Administration
+namespace MiniBusManagement.Data.Repositories.Administration
 {
     public class UserRepository : IUserRepository, IDisposable
     {

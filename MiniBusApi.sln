@@ -11,13 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Domain", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Services", "MiniBusApi.Services\MiniBusManagement.Services.csproj", "{948414F6-626C-4247-A0A3-CD8A800D5C11}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Repositories", "MiniBusApi.Repositories\MiniBusManagement.Repositories.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Data", "MiniBusApi.Data\MiniBusManagement.Data.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.ControllerTests", "MiniBusManagement.ControllerTests\MiniBusManagement.ControllerTests.csproj", "{6C643CD1-10B3-48EB-92FC-5BB4B3D9DA5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBusManagement.ServiceTests", "MiniBusManagement.ServiceTests\MiniBusManagement.ServiceTests.csproj", "{71DBC162-6794-4329-8452-6F7AD79E818F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.ServiceTests", "MiniBusManagement.ServiceTests\MiniBusManagement.ServiceTests.csproj", "{71DBC162-6794-4329-8452-6F7AD79E818F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBusManagement.DataTests", "MiniBusManagement.DataTests\MiniBusManagement.DataTests.csproj", "{0473AF3E-FA43-42A6-A0A9-30696612F65A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.DataTests", "MiniBusManagement.DataTests\MiniBusManagement.DataTests.csproj", "{0473AF3E-FA43-42A6-A0A9-30696612F65A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

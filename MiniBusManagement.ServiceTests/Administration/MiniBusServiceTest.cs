@@ -1,10 +1,10 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repositories.Data.Administration;
+using MiniBusManagement.Data.Repositories.Administration;
 using MiniBusManagement.Services.Administration;
 using Moq;
 using Xunit;
 
-namespace MiniBusManagement.Test.Administration
+namespace MiniBusManagement.ServiceTest.Administration
 {
     public class MiniBusServiceTest
     {

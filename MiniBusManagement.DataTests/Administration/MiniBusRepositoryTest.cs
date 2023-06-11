@@ -1,5 +1,5 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
-using MiniBusManagement.Repositories.Data.Administration;
+using MiniBusManagement.Data.Repositories.Administration;
 using Moq;
 using Xunit;
 

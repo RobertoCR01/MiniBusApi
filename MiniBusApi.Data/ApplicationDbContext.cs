@@ -4,7 +4,7 @@ using MiniBusManagement.Repositories.Entities.Administration;
 using System.Net;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
-namespace MiniBusManagement.Repositories
+namespace MiniBusManagement.Data.Repositories
 {
     public class ApplicationDbContext : DbContext
     {

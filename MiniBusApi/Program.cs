@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MiniBusManagement.Services.Administration;
 using MiniBusManagement.Api;
-using MiniBusManagement.Repositories;
-using MiniBusManagement.Repositories.Data.Administration;
+using MiniBusManagement.Data.Repositories;
+using MiniBusManagement.Data.Repositories.Administration;
 
 
 var builder = WebApplication.CreateBuilder(args);
