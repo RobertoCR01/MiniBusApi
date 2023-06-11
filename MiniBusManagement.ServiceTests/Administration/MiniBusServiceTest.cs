@@ -1,5 +1,4 @@
-﻿using FakeItEasy;
-using MiniBusManagement.Domain.Models.Administration;
+﻿using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Data.Administration;
 using MiniBusManagement.Services.Administration;
 using Moq;
@@ -7,19 +6,22 @@ using Xunit;
 
 namespace MiniBusManagement.Test.Administration
 {
-    public class MiniBusRepositoryTest
+    public class MiniBusServiceTest
     {
 
         [Fact]
         public async Task TestMiniBusServiceGetSucces()
         {
-            var miniBusList = A.Fake<List<MiniBus>>();
-            var company = A.Fake<Company>();
-                company.Id = 1;
-                company.Name = "Prueba";
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            miniBusList.Add(new MiniBus { Id = 1, Company = company, Capacity = 20, Brand = "Toyota" });
-            miniBusList.Add(new MiniBus { Id = 2, Company = company, Capacity = 20, Brand = "Isuzu" });
+            var miniBusList = new List<MiniBus> {
+                new MiniBus { Id = 1, Company = company, Capacity = 20, Brand = "Toyota" },
+                new MiniBus { Id = 2, Company = company, Capacity = 20, Brand = "Isuzu" }
+            };
 
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.GetMinibus()).ReturnsAsync(miniBusList);
@@ -33,16 +35,19 @@ namespace MiniBusManagement.Test.Administration
         [Fact]
         public async Task TestMiniBusServiceGetByIDSucces()
         {
-            var miniBus = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-            miniBus.Id = 1;
-            miniBus.Company = company;
-            miniBus.Capacity = 20;
-            miniBus.Brand = "Toyota";
+            var miniBus = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.GetMinibusByID(miniBus.Id)).ReturnsAsync(miniBus);
@@ -56,16 +61,19 @@ namespace MiniBusManagement.Test.Administration
         [Fact]
         public async Task TestMiniBusServiceInsertSucces()
         {
-            var miniBus = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-            miniBus.Id = 1;
-            miniBus.Company = company;
-            miniBus.Capacity = 20;
-            miniBus.Brand = "Toyota";
+            var miniBus = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
             var response = 201;
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
@@ -77,21 +85,25 @@ namespace MiniBusManagement.Test.Administration
         [Fact]
         public async Task TestMiniBusServiceUpdateucces()
         {
-            var miniBus = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-            miniBus.Id = 1;
-            miniBus.Company = company;
-            miniBus.Capacity = 20;
-            miniBus.Brand = "Toyota";
-            miniBus.Year = 2020;
-            miniBus.ModificationDate = It.IsAny<DateTime>();
-            miniBus.InsertionDate = It.IsAny<DateTime>();
-            miniBus.UserInsert = "Roberto";
-            miniBus.UserModifies = "Roberto";
+            var miniBus = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+                Year = 2020,
+                ModificationDate = It.IsAny<DateTime>(),
+                InsertionDate = It.IsAny<DateTime>(),
+                UserInsert = "Roberto",
+                UserModifies = "Roberto"
+            };
+            
             var response = 201;
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.UpdateMinibus(miniBus)).ReturnsAsync(response);

@@ -1,86 +1,81 @@
 ﻿using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Data.Administration;
-using MiniBusManagement.Services.Administration;
 using Moq;
 using Xunit;
 
-
-namespace MiniBusManagement.Test.Administration
+namespace MiniBusManagement.DataTests.Administration
 {
-    public class MiniBusServiceTest
+    public class MiniBusRepositoryTest
     {
 
         [Fact]
-        public async Task TestMiniBusServiceGetSucces()
+        public async Task TestGetMiniBusSucces()
         {
             var company = new Company
             {
                 Id = 1,
                 Name = "Prueba"
             };
-
-            var miniBusList = new List<MiniBus> {
+            var miniBusList = new List<MiniBus>
+            {
                 new MiniBus { Id = 1, Company = company, Capacity = 20, Brand = "Toyota" },
                 new MiniBus { Id = 2, Company = company, Capacity = 20, Brand = "Isuzu" }
             };
 
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.GetMinibus()).ReturnsAsync(miniBusList);
-            var service = new MiniBusService(mockMiniBusRepository.Object);
-            var actionResult = await service.GetMinibus("Roberto", It.IsAny<DateTime>());
+            var actionResult = await mockMiniBusRepository.Object.GetMinibus();
             Assert.NotNull(actionResult);
             var listMiniBusResponse = (List<MiniBus>)actionResult;
             Assert.NotNull(listMiniBusResponse);
             Assert.Equal(2, listMiniBusResponse.Count);
         }
         [Fact]
-        public async Task TestMiniBusServiceGetByIDSucces()
+        public async Task TestGetMinibusByIDSucces()
         {
             var company = new Company
             {
                 Id = 1,
                 Name = "Prueba"
-            };
 
+            };
             var miniBus = new MiniBus
             {
                 Id = 1,
                 Company = company,
                 Capacity = 20,
-                Brand = "Toyota",
+                Brand = "Toyota"
             };
 
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.GetMinibusByID(miniBus.Id)).ReturnsAsync(miniBus);
-            var service = new MiniBusService(mockMiniBusRepository.Object);
-            var actionResult = await service.GetMiniBusByID(1, "Roberto", It.IsAny<DateTime>());
+             var actionResult = await mockMiniBusRepository.Object.GetMinibusByID(1);
             Assert.NotNull(actionResult);
             var miniBusResponse = (MiniBus)actionResult;
             Assert.NotNull(miniBusResponse);
             Assert.Equal(1, miniBusResponse.Id);
         }
         [Fact]
-        public async Task TestMiniBusServiceInsertSucces()
+        public async Task TestInsertMinibusSucces()
         {
             var company = new Company
             {
                 Id = 1,
                 Name = "Prueba"
-            };
 
+            };
             var miniBus = new MiniBus
             {
                 Id = 1,
                 Company = company,
                 Capacity = 20,
-                Brand = "Toyota",
+                Brand = "Toyota"
             };
 
             var response = 201;
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.InsertMinibus(miniBus)).ReturnsAsync(response);
-            var service = new MiniBusService(mockMiniBusRepository.Object);
-            var actionResult = await service.InsertMinibus(miniBus, "Roberto", It.IsAny<DateTime>());
+            var actionResult = await mockMiniBusRepository.Object.InsertMinibus(miniBus);
             Assert.Equal(201, actionResult);
         }
         [Fact]
@@ -90,8 +85,8 @@ namespace MiniBusManagement.Test.Administration
             {
                 Id = 1,
                 Name = "Prueba"
-            };
 
+            };
             var miniBus = new MiniBus
             {
                 Id = 1,
@@ -104,13 +99,12 @@ namespace MiniBusManagement.Test.Administration
                 UserInsert = "Roberto",
                 UserModifies = "Roberto"
             };
-            
+
             var response = 201;
             var mockMiniBusRepository = new Mock<IMiniBusRepository>();
             mockMiniBusRepository.Setup(c => c.UpdateMinibus(miniBus)).ReturnsAsync(response);
             mockMiniBusRepository.Setup(c => c.GetMinibusByID(miniBus.Id)).ReturnsAsync(miniBus);
-            var service = new MiniBusService(mockMiniBusRepository.Object);
-            var actionResult = await service.UpdateMinibus(1, miniBus, "Roberto", It.IsAny<DateTime>());
+            var actionResult = await mockMiniBusRepository.Object.UpdateMinibus(miniBus);
             Assert.Equal(201, actionResult);
         }
     }

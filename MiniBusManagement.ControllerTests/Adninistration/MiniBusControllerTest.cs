@@ -10,7 +10,7 @@ using MiniBusManagement.Services.Administration;
 using Moq;
 using Xunit;
 
-namespace MiniBusManagement.ControllerTest.Administration
+namespace MiniBusManagement.ControllerTests.Administration
 {
     public class MiniBusControllerTest
     {
@@ -126,25 +126,29 @@ namespace MiniBusManagement.ControllerTest.Administration
                 Name = "Prueba"
             };
 
-            var document = new MiniBus
-            {
-                Id = 1,
-                Company = company,
-                Capacity = 20,
-                Brand = "Toyota",
-            };
-
+            var document = new Mock<MiniBus>();
             int miniBusId = 5;
+
             var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
+            mockMiniBusService.Setup(c => c.GetMiniBusByID(miniBusId, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document.Object);
             var controller = new MiniBusController(mockMiniBusService.Object, _options, _logger, _mapper);
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
-            Assert.True(actionResult is NotFoundObjectResult);
-            var actualResult = actionResult as NotFoundObjectResult;
-            Assert.NotNull(actualResult);
-            Assert.NotEqual(0, actualResult.StatusCode);
-            Assert.Equal(404, actualResult.StatusCode);
+            Assert.True(actionResult is ObjectResult || actionResult is StatusCodeResult);
+            if (actionResult is StatusCodeResult)
+            {
+                var actualResult = actionResult as StatusCodeResult;
+                Assert.NotNull(actualResult);
+                Assert.NotEqual(0, actualResult.StatusCode);
+                Assert.Equal(404, actualResult.StatusCode);
+            }
+            if (actionResult is ObjectResult)
+            {
+                var resulObject = actionResult as ObjectResult;
+                Assert.NotNull(resulObject);
+                Assert.NotNull(resulObject.StatusCode);
+                Assert.Equal(404, resulObject.StatusCode);
+            }
         }
         [Fact]
         public async Task TestMiniBusControllerGetByIdNotBadRequest()

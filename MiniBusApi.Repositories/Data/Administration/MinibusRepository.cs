@@ -73,11 +73,6 @@ namespace MiniBusManagement.Repositories.Data.Administration
             }
             else
             {
-                //CompanyDBEntity? company = await _db.Companies.AsNoTracking().FirstOrDefaultAsync(c => c.Id == miniBus.Id);
-                //if (company != null)
-                //{
-                //    miniBus.Company = company;  
-                //}
                 MiniBus miniBusDomain = _mapper.Map<MiniBus>(miniBus);
                 return miniBusDomain;
             }
