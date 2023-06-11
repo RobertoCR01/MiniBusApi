@@ -16,10 +16,10 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly IMapper _mapper;
-        private readonly IOptionsMonitor<JwtOptions> _options;
+        private readonly IOptionsMonitor<HaciendaOptions> _options;
         private readonly ILogger _logger;
         private readonly TelemetryClient _telemetryClient;
-        public UserController(IUserService userService, IOptionsMonitor<JwtOptions> options, ILogger<UserController> logger,
+        public UserController(IUserService userService, IOptionsMonitor<HaciendaOptions> options, ILogger<UserController> logger,
             IMapper mapper)
         {
             _userService = userService;
@@ -40,7 +40,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
             {
                 if (id == 0)
                 {
-                    var todo = _options.CurrentValue.SecretKey;
                     return BadRequest("invalid id");
                 };
 
