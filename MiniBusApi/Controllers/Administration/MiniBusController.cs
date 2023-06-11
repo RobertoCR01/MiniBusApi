@@ -5,9 +5,6 @@ using MiniBusManagement.Api.Models.Administration;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using AutoMapper;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using Microsoft.Extensions.Logging;
 
 namespace MiniBusManagement.Api.Controllers.Administration
 {
@@ -21,7 +18,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly IMapper _mapper;
         private readonly IOptionsMonitor<HaciendaOptions> _options;
         private readonly ILogger<MiniBusController> _logger;
-        private readonly TelemetryClient _telemetryClient;
 
         public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<HaciendaOptions> options, ILogger<MiniBusController> logger,IMapper mapper)
         {
