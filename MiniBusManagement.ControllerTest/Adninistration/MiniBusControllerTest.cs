@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -9,7 +8,6 @@ using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Services.Administration;
 using Moq;
-using Bogus;
 using Xunit;
 
 namespace MiniBusManagement.ControllerTest.Administration
@@ -24,7 +22,8 @@ namespace MiniBusManagement.ControllerTest.Administration
             _options = Mock.Of<IOptionsMonitor<HaciendaOptions>>();
             _logger = Mock.Of<ILogger<MiniBusController>>();
 
-            MapperConfiguration config = new MapperConfiguration(cfg => {
+            MapperConfiguration config = new MapperConfiguration(cfg =>
+            {
                 cfg.AddProfile(new AutoMapping());
             });
             _mapper = new Mapper(config);
@@ -34,13 +33,6 @@ namespace MiniBusManagement.ControllerTest.Administration
         [Fact]
         public async Task TestMiniBusControllerGetSucces()
         {
-            var fakeData = A.CollectionOfDummy<MiniBus>(10);
-            var fakeUsers = new Faker<MiniBus>()
-            .RuleFor(u => u.Id, f => f.Random.Int())
-            .RuleFor(u => u.Brand, f => f.Person.FirstName)
-            .RuleFor(u => u.Tipo, f => f.Person.Email);
-
-            
 
             var company = new Company();
             company.Id = 1;
@@ -85,16 +77,19 @@ namespace MiniBusManagement.ControllerTest.Administration
         [Fact]
         public async Task TestMiniBusControllerGetByIdSuccess()
         {
-            var document = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-            document.Id = 1;
-            document.Company = company;
-            document.Capacity = 20;
-            document.Brand = "Toyota";
+            var document = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
             int miniBusId = 1;
 
@@ -125,16 +120,19 @@ namespace MiniBusManagement.ControllerTest.Administration
         [Fact]
         public async Task TestMiniBusControllerGetByIdNotFound()
         {
-            var document = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-            document.Id = 1;
-            document.Company = company;
-            document.Capacity = 20;
-            document.Brand = "Toyota";
+            var document = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
             int miniBusId = 5;
             var mockMiniBusService = new Mock<IMiniBusService>();
@@ -151,15 +149,19 @@ namespace MiniBusManagement.ControllerTest.Administration
         [Fact]
         public async Task TestMiniBusControllerGetByIdNotBadRequest()
         {
-            var document = A.Fake<MiniBus>();
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            document.Id = 1;
-            document.Company = company;
-            document.Capacity = 20;
-            document.Brand = "Toyota";
+            var document = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
             int miniBusId = 0;
             var mockMiniBusService = new Mock<IMiniBusService>();
@@ -178,17 +180,20 @@ namespace MiniBusManagement.ControllerTest.Administration
         public async Task TestMiniBusControllerDeleteMiniBusSuccess()
         {
 
-            var miniBusInsertar = A.Fake<MiniBus>();
+            var company = new Company
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
-            var company = A.Fake<Company>();
-            company.Id = 1;
-            company.Name = "Prueba";
+            var miniBusInsertar = new MiniBus
+            {
+                Id = 1,
+                Company = company,
+                Capacity = 20,
+                Brand = "Toyota",
+            };
 
-            miniBusInsertar.Id = 1;
-            miniBusInsertar.Tipo = "Van";
-            miniBusInsertar.Company = company;
-            miniBusInsertar.Capacity = 20;
-            miniBusInsertar.Brand = "Toyota";
 
             var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 204;
@@ -208,13 +213,12 @@ namespace MiniBusManagement.ControllerTest.Administration
         [Fact]
         public async Task TestMiniBusControllerInsertMiniBusSuccess()
         {
-            var company = A.Fake<CompanyDTO>();
-            company.Id = 1;
-            company.Name = "Prueba";
-
-
-            var minibus = A.Fake<MiniBusDTO>();
-
+            var minibus = new MiniBusDTO ();
+            var company = new CompanyDTO
+            {
+                Id = 1,
+                Name = "Prueba"
+            };
 
             MiniBusDTO miniBusDTOInsertar = new()
             {
