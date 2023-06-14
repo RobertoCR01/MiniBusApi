@@ -6,6 +6,7 @@ namespace MiniBusManagement.Domain.Models.Administration
     public class MiniBus
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
         public Company? Company { get; set; }
         public string? Brand { get; set; }
         public string? Placa { get; set; }

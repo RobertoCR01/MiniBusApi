@@ -11,6 +11,7 @@ namespace MiniBusManagement.Domain.Models.Administration
     public class Company
     {
         public int Id { get; set; }
+        public ICollection<MiniBus>? Minibuses { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]

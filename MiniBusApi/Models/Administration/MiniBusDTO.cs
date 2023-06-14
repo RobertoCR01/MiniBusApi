@@ -8,6 +8,7 @@ namespace MiniBusManagement.Api.Models.Administration
     public class MiniBusDTO
     {
         public int Id { get; set; }
+        public int CompanyId { get; set; }
         public CompanyDTO? Company { get; set; }
 
         [Required]

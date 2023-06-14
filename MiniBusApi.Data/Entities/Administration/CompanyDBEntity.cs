@@ -14,6 +14,7 @@ namespace MiniBusManagement.Repositories.Entities.Administration
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public ICollection<MiniBusDBEntity>? Minibuses { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]

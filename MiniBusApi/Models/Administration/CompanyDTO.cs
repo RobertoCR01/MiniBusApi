@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MiniBusManagement.Repositories.Entities.Administration;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MiniBusManagement.Api.Models.Administration
@@ -6,6 +7,7 @@ namespace MiniBusManagement.Api.Models.Administration
     public class CompanyDTO
     {
         public int Id { get; set; }
+        public ICollection<MiniBusDTO>? Minibuses { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]
