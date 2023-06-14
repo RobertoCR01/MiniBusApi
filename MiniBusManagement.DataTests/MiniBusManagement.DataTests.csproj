@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MiniBusApi.Data\MiniBusManagement.Data.csproj" />
     <ProjectReference Include="..\MiniBusApi.Domain\MiniBusManagement.Domain.csproj" />
+    <ProjectReference Include="..\MiniBusApi\MiniBusManagement.Api.csproj" />
   </ItemGroup>
 
 </Project>

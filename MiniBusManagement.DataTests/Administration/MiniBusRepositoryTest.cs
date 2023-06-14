@@ -8,7 +8,7 @@ using MiniBusManagement.Repositories.Entities.Administration;
 using Moq;
 using Xunit;
 using AutoMapper;
-
+using MiniBusManagement.Api;
 
 namespace MiniBusManagement.Test;
 
@@ -18,11 +18,19 @@ public class MiniBusRepositoryTest : IDisposable
     private readonly DbContextOptions<ApplicationDbContext> _contextOptions;
     private readonly IMapper _mapper;
 
+
     #region ConstructorAndDispose
     ApplicationDbContext CreateContext() => new ApplicationDbContext(_contextOptions);
     public void Dispose() => _connection.Dispose();
     public MiniBusRepositoryTest()
     {
+        MapperConfiguration config = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile(new AutoMapping());
+        });
+
+        _mapper = new Mapper(config);
+
         _connection = new SqliteConnection("Filename=:memory:");
         _connection.Open();
 
@@ -45,7 +53,7 @@ public class MiniBusRepositoryTest : IDisposable
         context.AddRange(
         new CompanyDBEntity
             {
-                Id = 1,
+                Id = 3,
                 ContactNumber = "2655666",
                 ContactName = "Roberto Diaz",
                 City = "San Jose",
@@ -62,7 +70,7 @@ public class MiniBusRepositoryTest : IDisposable
         new MiniBusDBEntity
             {
                 Id = 10,
-                Company= new CompanyDBEntity { Id = 1 },
+                CompanyId = 2,
                 Plate="Pak715",
                 Capacity = 20,
                 Brand = "Toyota",
@@ -116,10 +124,7 @@ public class MiniBusRepositoryTest : IDisposable
         var miniBusInsert = new MiniBus
         {
             Id = 11,
-            Company = new Company
-            {
-                Id = 1,
-            },
+            CompanyId = 2,
             Capacity = 20,
             Brand = "Toyota",
             Tipo = "Van",
@@ -145,11 +150,8 @@ public class MiniBusRepositoryTest : IDisposable
         var miniBusInsert = new MiniBus
         {
             Id = 10,
-            Company = new Company
-            {
-                Id = 1,
-            },
             Capacity = 20,
+            CompanyId = 2,
             Brand = "Toyota",
             Tipo = "Van",
             Year = 2020,

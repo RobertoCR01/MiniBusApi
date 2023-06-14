@@ -2,6 +2,7 @@
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Entities.Administration;
 using System.Net;
+using System.Numerics;
 using static Microsoft.ApplicationInsights.MetricDimensionNames.TelemetryContext;
 
 namespace MiniBusManagement.Data.Repositories
@@ -19,9 +20,11 @@ namespace MiniBusManagement.Data.Repositories
         public DbSet<RolDBEntity> Roles { get; set; }
 
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CompanyDBEntity>().HasData(
+        modelBuilder.Entity<CompanyDBEntity>().HasData(
                 new CompanyDBEntity
                 {
                     Id = 1,
@@ -53,82 +56,43 @@ namespace MiniBusManagement.Data.Repositories
                     UserModifies = "RobertoM"
                 }
             );
-            modelBuilder.Entity<UserDBEntity>().HasData(
-              new UserDBEntity
-              {
-                  Id = 1,
-                  login="Rdiaz",
-                  UserEmail="prueba01@gmail.com",
-                  UserName="Usuario 01",
-                  UserPassword="pass01",
-                  UserPhone="25365600",
-                  InsertionDate = DateTime.Now,
-                  ModificationDate = DateTime.Now,
-                  UserInsert = "Roberto",
-                  UserModifies = "RobertoM"
-              },
-              new UserDBEntity
-              {
-                  Id = 2,
-                  login = "Rdiaz02",
-                  UserEmail = "prueba02@gmail.com",
-                  UserName = "Usuario 02",
-                  UserPassword = "pass02",
-                  UserPhone = "25365600",
-                  InsertionDate = DateTime.Now,
-                  ModificationDate = DateTime.Now,
-                  UserInsert = "Roberto",
-                  UserModifies = "RobertoM"
-              }
-          );
-            modelBuilder.Entity<RolDBEntity>().HasData(
-              new RolDBEntity
-              {
-                  Id = 1,
-                  Description="Rol 01 de Gerentes de tiendas",
-                  Name= "Gerentes",
-                  InsertionDate = DateTime.Now,
-                  ModificationDate = DateTime.Now,
-                  UserInsert = "Roberto",
-                  UserModifies = "RobertoM"
-              },
-              new RolDBEntity
-              {
-                  Id = 2,
-                  Description = "Rol 02 de Gerentes de ferreterias",
-                  Name = "Gerentes Ferrteria",
-                  InsertionDate = DateTime.Now,
-                  ModificationDate = DateTime.Now,
-                  UserInsert = "Roberto",
-                  UserModifies = "RobertoM"
-              }
-          );
+
+            modelBuilder.Entity<MiniBusDBEntity>()
+           .HasOne(o => o.Company)
+           .WithMany(c => c.Minibuses)
+           .HasForeignKey(o => o.CompanyId);
+
+
             modelBuilder.Entity<MiniBusDBEntity>().HasData(
                 new MiniBusDBEntity
                 {
                     Id = 1,
+                    CompanyId = 2,
+                    Plate = "Pak715",
+                    Capacity = 20,
                     Brand = "Toyota",
-                    Plate = "PAK715",
-                    Capacity = 3,
                     Tipo = "Van",
+                    Year = 2020,
                     InsertionDate = DateTime.Now,
-                    ModificationDate = DateTime.Now
+                    ModificationDate = DateTime.Now,
+                    UserInsert = "Roberto",
+                    UserModifies = "Roberto",
                 },
-                new MiniBusDBEntity
-                {
-                    Id = 2,
-                    // CompanyId  = 1,
-                    Brand = "Mazada",
-                    Plate = "CL1715",
-                    Capacity = 6,
-                    Tipo = "Car",
-                    InsertionDate = DateTime.Now,
-                    ModificationDate = DateTime.Now
-                },
+                 new MiniBusDBEntity
+                 {
+                     Id = 2,
+                     CompanyId  = 1,
+                     Brand = "Mazada",
+                     Plate = "CL1715",
+                     Capacity = 6,
+                     Tipo = "Car",
+                     InsertionDate = DateTime.Now,
+                     ModificationDate = DateTime.Now
+                 },
                 new MiniBusDBEntity
                 {
                     Id = 3,
-                    // CompanyId = 1,
+                    CompanyId = 1,
                     Brand = "Isuzu",
                     Plate = "BUS715",
                     Capacity = 7,
@@ -139,15 +103,18 @@ namespace MiniBusManagement.Data.Repositories
                 new MiniBusDBEntity
                 {
                     Id = 4,
-                    //CompanyId = 1,
+                    CompanyId = 1,
                     Brand = "Ford",
                     Plate = "625630",
                     Capacity = 8,
                     Tipo = "Tri",
                     InsertionDate = DateTime.Now,
-                    ModificationDate = DateTime.Now
+                    ModificationDate = DateTime.Now,
+                    UserInsert = "Roberto",
+                    UserModifies = "RobertoM"
                 }
-        );
+                );
+
         }
     }
 }
