@@ -24,4 +24,4 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Test Controller
-      run: dotnet test
+      run: dotnet test --configuration Release --no-restore
