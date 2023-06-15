@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MiniBusManagement.Data.Configurations;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Repositories.Entities.Administration;

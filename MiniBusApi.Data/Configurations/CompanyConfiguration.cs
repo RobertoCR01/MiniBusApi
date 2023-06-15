@@ -12,6 +12,7 @@ namespace MiniBusManagement.Data.Configurations
 {
     public class CompanyConfiguration : IEntityTypeConfiguration<CompanyDBEntity>
     {
+
         public void Configure(EntityTypeBuilder<CompanyDBEntity> builder)
         {
         builder.HasData(

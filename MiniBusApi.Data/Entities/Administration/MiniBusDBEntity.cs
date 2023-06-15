@@ -12,9 +12,9 @@ namespace MiniBusManagement.Repositories.Entities.Administration
 
        // [ForeignKey("CompanyId")]
         public int CompanyId { get; set; }
-        public CompanyDBEntity? Company { get; set; }
+        public virtual CompanyDBEntity? Company { get; set; }
         public string? Brand { get; set; }
-        public string? Plate { get; set; }
+        public string? Placa { get; set; }
         public string? Tipo { get; set; }
         public int Year { get; set; }
         public int Capacity { get; set; }

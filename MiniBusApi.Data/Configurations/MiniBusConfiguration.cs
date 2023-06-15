@@ -14,11 +14,6 @@ namespace MiniBusManagement.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<MiniBusDBEntity> builder)
         {
-            builder.HasOne(o => o.Company)
-            .WithMany(c => c.Minibuses)
-            .HasForeignKey(o => o.CompanyId);
-
-
             builder.HasData(
                 new MiniBusDBEntity
                 {
