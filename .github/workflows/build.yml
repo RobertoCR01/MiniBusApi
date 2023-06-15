@@ -24,4 +24,4 @@ jobs:
       run: dotnet build 
 
     - name: Test Controller
-      run: dotnet test
+    -  run: dotnet test
