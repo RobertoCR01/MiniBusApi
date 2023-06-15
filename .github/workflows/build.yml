@@ -1,1 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'  # Reemplaza '7.0.5' con la versión de .NET que estés utilizando
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release
+
+    - name: Test Controller
+      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.ControllerTests
+
+
+    - name: Test Unit
+      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.ServiceTests
+
+    - name: Test Controller
+      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.DataTests
 
