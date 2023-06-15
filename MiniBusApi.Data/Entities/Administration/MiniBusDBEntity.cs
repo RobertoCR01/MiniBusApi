@@ -14,7 +14,7 @@ namespace MiniBusManagement.Repositories.Entities.Administration
         public int CompanyId { get; set; }
         public virtual CompanyDBEntity? Company { get; set; }
         public string? Brand { get; set; }
-        public string? Platsdde { get; set; }
+        public string? Plate { get; set; }
         public string? Tipo { get; set; }
         public int Year { get; set; }
         public int Capacity { get; set; }
