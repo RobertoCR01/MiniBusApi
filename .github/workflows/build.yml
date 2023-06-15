@@ -21,7 +21,7 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore /p:WarningLevel=0
+      run: dotnet build --no-restore --configuration Release --warnaserror
 
     - name: Test Controller
       run: dotnet test --configuration Release --no-restore
