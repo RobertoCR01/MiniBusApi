@@ -22,3 +22,6 @@ jobs:
 
     - name: Build
       run: dotnet build 
+
+    - name: Run Tests
+      run: dotnet test --no-build --verbosity normal
