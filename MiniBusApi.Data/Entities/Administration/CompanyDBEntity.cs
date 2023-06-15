@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MiniBusManagement.Repositories.Entities.Administration
@@ -14,7 +15,6 @@ namespace MiniBusManagement.Repositories.Entities.Administration
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public ICollection<MiniBusDBEntity>? Minibuses { get; set; }
         [Required]
         public string? Name { get; set; }
         [Required]
