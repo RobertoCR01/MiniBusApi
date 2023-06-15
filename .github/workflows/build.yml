@@ -24,12 +24,4 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Test Controller
-      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.ControllerTests
-
-
-    - name: Test Unit
-      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.ServiceTests
-
-    - name: Test Controller
-      run: dotnet test --configuration Release --no-restore --filter FullyQualifiedName~MiniBusManagement.DataTests
-
+      run: dotnet test
