@@ -20,6 +20,9 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
+    - name: Instalar xunit
+      run: dotnet add package xunit.runner.visualstudio --version 2.4.5
+
     - name: Build
       run: dotnet build --configuration Release 
 
