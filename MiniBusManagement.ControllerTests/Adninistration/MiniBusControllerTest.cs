@@ -127,7 +127,7 @@ namespace MiniBusManagement.ControllerTests.Administration
             };
 
             var document = new Mock<MiniBus>();
-            int miniBusId = 5;
+            int miniBusId = 1;
 
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(miniBusId, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document.Object);
