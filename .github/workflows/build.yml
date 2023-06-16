@@ -1,38 +1,27 @@
-name: CI
+name: Build and Test
 
 on:
   push:
     branches:
       - '*'
-  pull_request:
-    branches:
-      - '*'
 
 jobs:
   build:
-
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '7.0.x' # Reemplaza 'x' por la versión adecuada de .NET
+        dotnet-version: '7.0.x'
 
-    - name: Restore NuGet packages
+    - name: Restore dependencies
       run: dotnet restore
 
-    - name: Build solution
-      run: dotnet build --configuration Release
+    - name: Build
+      run: dotnet build --no-restore 
 
-    - name: Run tests
-      run: dotnet test --configuration Release --no-build --logger "trx;LogFileName=test-results.trx"
-
-    - name: Publish test results
-      uses: actions/upload-artifact@v2
-      with:
-        name: Test Results
-        path: ./TestResults/test-results.trx
+    - name: Run Tests
+      run: dotnet test --no-build --verbosity normal
