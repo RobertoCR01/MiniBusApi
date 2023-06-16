@@ -114,6 +114,7 @@ namespace MiniBusManagement.ControllerTests.Administration
                 var miniObject = resulObject.Value as MiniBusDTO;
                 Assert.NotNull(miniObject);
                 Assert.Equal(1, miniObject.Id);
+
             }
         }
         [Fact]
