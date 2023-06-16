@@ -67,8 +67,7 @@ namespace MiniBusManagement.ControllerTests.Administration
                 Assert.NotNull(resulObject.StatusCode);
                 Assert.Equal(200, resulObject.StatusCode);
                 var miniBusListObject = resulObject.Value as List<MiniBus>;
-               // Assert.NotNull(miniBusListObject);
-               // Assert.Equal(2, miniBusListObject.Count);
+                Assert.Equal(2, miniBusListObject.Count);
 
             }
 
@@ -147,7 +146,7 @@ namespace MiniBusManagement.ControllerTests.Administration
                 var resulObject = actionResult as ObjectResult;
                 Assert.NotNull(resulObject);
                 Assert.NotNull(resulObject.StatusCode);
-                //Assert.Equal(404, resulObject.StatusCode);
+                Assert.Equal(404, resulObject.StatusCode);
             }
         }
         [Fact]
@@ -211,7 +210,6 @@ namespace MiniBusManagement.ControllerTests.Administration
             Assert.NotNull(actualResult);
             Assert.NotEqual(0, actualResult.StatusCode);
             Assert.Equal(204, actualResult.StatusCode);
-
         }
 
         [Fact]
