@@ -10,7 +10,7 @@ using MiniBusManagement.Services.Administration;
 using Moq;
 using Xunit;
 
-namespace MiniBusManagement.ControllerTests.Administration
+namespace MiniBusManagement.Api.Tests.Administration
 {
     public class MiniBusControllerTest
     {
