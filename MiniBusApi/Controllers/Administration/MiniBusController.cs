@@ -46,6 +46,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 };
 
                 MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
+                _logger.LogInformation("Varios", minibus.Id);
                 MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
                 if (minibusDTO.Id == 0)

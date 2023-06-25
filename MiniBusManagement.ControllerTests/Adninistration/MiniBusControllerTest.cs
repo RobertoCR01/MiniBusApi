@@ -120,11 +120,6 @@ namespace MiniBusManagement.ControllerTests.Administration
         [Fact]
         public async Task TestMiniBusControllerGetByIdNotFound()
         {
-            var company = new Company
-            {
-                Id = 1,
-                Name = "Prueba"
-            };
 
             var document = new Mock<MiniBus>();
             int miniBusId = 1;

@@ -18,7 +18,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly IMapper _mapper;
         private readonly IOptionsMonitor<HaciendaOptions> _options;
         private readonly ILogger _logger;
-        private readonly TelemetryClient _telemetryClient;
+
         public UserController(IUserService userService, IOptionsMonitor<HaciendaOptions> options, ILogger<UserController> logger,
             IMapper mapper)
         {
