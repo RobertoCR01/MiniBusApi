@@ -56,7 +56,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     { "Id",userDTO.Id },
                     { "UserName", userDTO.UserName},
                     { "UserPhone", userDTO.UserPhone},
-                    { "CompanyName", userDTO.Company.Name}
+                    { "CompanyName", userDTO.Company?.Name}
                 };
                 _logger.LogControllerInformation("Minibus Information", messageProperties);
                 return Ok(userDTO);

@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Services"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Data", "MiniBusApi.Data\MiniBusManagement.Data.csproj", "{A6BA84AE-0E25-4A1B-96EF-49586D36C67A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.ControllerTests", "MiniBusManagement.ControllerTests\MiniBusManagement.ControllerTests.csproj", "{6C643CD1-10B3-48EB-92FC-5BB4B3D9DA5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.Api.Tests", "MiniBusManagement.Api.Tests\MiniBusManagement.Api.Tests.csproj", "{6C643CD1-10B3-48EB-92FC-5BB4B3D9DA5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBusManagement.ServiceTests", "MiniBusManagement.ServiceTests\MiniBusManagement.ServiceTests.csproj", "{71DBC162-6794-4329-8452-6F7AD79E818F}"
 EndProject

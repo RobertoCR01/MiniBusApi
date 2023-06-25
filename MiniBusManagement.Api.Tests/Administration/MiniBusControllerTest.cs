@@ -20,7 +20,7 @@ namespace MiniBusManagement.ControllerTests.Administration
         public MiniBusControllerTest()
         {
             _options = new Mock<IOptionsMonitor<HaciendaOptions>>();
-            _logger =new Mock<ILogger<MiniBusController>>();
+            _logger = new Mock<ILogger<MiniBusController>>();
             
             MapperConfiguration config = new MapperConfiguration(cfg =>
             {
@@ -47,6 +47,7 @@ namespace MiniBusManagement.ControllerTests.Administration
             var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMinibus("Roberto", It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
             var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
+
             var actionResult = await controller.GetMiniBuses();
             Assert.NotNull(actionResult);
             var result = actionResult.Result;
@@ -67,7 +68,7 @@ namespace MiniBusManagement.ControllerTests.Administration
                 Assert.NotNull(resulObject.StatusCode);
                 Assert.Equal(200, resulObject.StatusCode);
                 var miniBusListObject = resulObject.Value as List<MiniBus>;
-                Assert.Equal(2, miniBusListObject.Count);
+                Assert.Equal(2, miniBusListObject?.Count);
 
             }
 
