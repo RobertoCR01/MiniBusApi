@@ -94,7 +94,7 @@ namespace MiniBusManagement.Api.Tests.Administration
             int miniBusId = 1;
 
             var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
+            mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
             var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
