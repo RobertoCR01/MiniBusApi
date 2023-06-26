@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MiniBusManagement.Api;
+﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusManagement.Api.Controllers.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
@@ -33,7 +29,7 @@ namespace MiniBusManagement.Api.Tests.Administration
             var document = new MiniBus
             {
                 Id = 1,
-                Company = company,
+                CompanyId = 1,
                 Capacity = 20,
                 Brand = "Toyota",
             };
