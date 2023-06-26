@@ -27,7 +27,7 @@ jobs:
       run: dotnet build
 
     - name: Test with the dotnet CLI
-      run: dotnet test ./MiniBusManagement.Api.Tests --logger trx --results-directory "TestResults-${{ env.DOTNET_VERSION }}"
+      run: dotnet test ./MiniBusManagement.Api.Tests -v detailed --logger trx --results-directory "TestResults-${{ env.DOTNET_VERSION }}"
 
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v3
