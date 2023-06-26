@@ -17,14 +17,12 @@ namespace MiniBusManagement.Api.Controllers.Administration
         private readonly DateTime _date = DateTime.Now;
         private readonly IMapper _mapper;
         private readonly IOptionsMonitor<HaciendaOptions> _options;
-        private readonly ILogger<MiniBusController> _logger;
 
-        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<HaciendaOptions> options, ILogger<MiniBusController> logger,IMapper mapper)
+        public MiniBusController(IMiniBusService miniBusService, IOptionsMonitor<HaciendaOptions> options,IMapper mapper)
         {
             _miniBusService = miniBusService;
             _mapper = mapper;
             _options = options;
-            _logger = logger;
         }
 
 
@@ -46,7 +44,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
                 };
 
                 MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
-                _logger.LogInformation("Varios", minibus.Id);
                 MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
 
                 if (minibusDTO.Id == 0)
@@ -60,7 +57,6 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     { "Plate", minibusDTO.Plate},
                     { "Brand", minibusDTO.Brand}
                 };
-                _logger.LogControllerInformation("Minibus Information", messageProperties);
                 return Ok(minibusDTO);
             }
             catch (Exception ex)
