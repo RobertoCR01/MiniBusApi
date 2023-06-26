@@ -14,18 +14,10 @@ namespace MiniBusManagement.Api.Tests.Administration
 {
     public class MiniBusControllerTest
     {
-        private readonly Mock<IOptionsMonitor<HaciendaOptions>> _options;
-        private readonly IMapper _mapper;
-        Mock<IMiniBusService> mockMiniBusService;
+
+        private Mock<IMiniBusService> mockMiniBusService;
         public MiniBusControllerTest()
         {
-            _options = new Mock<IOptionsMonitor<HaciendaOptions>>();
-            
-            MapperConfiguration config = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new AutoMapping());
-            });
-            _mapper = new Mapper(config);
         }
 
 
@@ -49,7 +41,7 @@ namespace MiniBusManagement.Api.Tests.Administration
             int miniBusId = 1;
             mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _mapper);
+            var controller = new MiniBusController(mockMiniBusService.Object);
             var actionResult = await controller.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is ObjectResult || actionResult is StatusCodeResult);
