@@ -16,6 +16,7 @@ namespace MiniBusManagement.Api.Tests.Administration
     {
         private readonly Mock<IOptionsMonitor<HaciendaOptions>> _options;
         private readonly IMapper _mapper;
+        Mock<IMiniBusService> mockMiniBusService;
         public MiniBusControllerTest()
         {
             _options = new Mock<IOptionsMonitor<HaciendaOptions>>();
@@ -46,8 +47,7 @@ namespace MiniBusManagement.Api.Tests.Administration
             };
 
             int miniBusId = 1;
-
-            var mockMiniBusService = new Mock<IMiniBusService>();
+            mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
             var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _mapper);
             var actionResult = await controller.GetMiniBus(miniBusId);
