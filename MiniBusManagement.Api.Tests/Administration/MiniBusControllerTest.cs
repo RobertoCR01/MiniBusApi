@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MiniBusManagement.Api.Controllers.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
@@ -105,12 +108,12 @@ namespace MiniBusManagement.Api.Tests.Administration
 
 
             int miniBusId = 1;
-            mockMiniBusService = new Mock<IMiniBusService>();
+            var mockMiniBusService = new Mock<IMiniBusService>();
             mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(new MiniBus
             {
                 Id=1, CompanyId=1, Capacity=20,Brand="pruba"
             });
-            var controller = new MiniBusController(mockMiniBusService.Object);
+            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, loggerMock.Object, _mapper);
 
             var actionResult = await controller.GetMiniBus(miniBusId);
 
