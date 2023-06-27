@@ -13,20 +13,23 @@ namespace MiniBusManagement.Api.Tests.Administration
 {
     public class MiniBusControllerTest
     {
-        private readonly Mock<IOptionsMonitor<HaciendaOptions>> _options;
-        private readonly Mock<ILogger<MiniBusController>> _logger;
-        private readonly IMapper _mapper;
+        private readonly Mock<IOptionsMonitor<HaciendaOptions>> _optionsMock;
+        private readonly Mock<ILogger<MiniBusController>> _loggerMock;
+        private readonly IMapper _mapperMock;
+        private readonly Mock<IMiniBusService> _miniBusServiceMock;
+        private readonly MiniBusController _miniBusController;
 
         public MiniBusControllerTest()
         {
-            _options = new Mock<IOptionsMonitor<HaciendaOptions>>();
-            _logger = new Mock<ILogger<MiniBusController>>();
-            
+            _miniBusServiceMock = new Mock<IMiniBusService>();
+            _optionsMock = new Mock<IOptionsMonitor<HaciendaOptions>>();
+            _loggerMock = new Mock<ILogger<MiniBusController>>();
             MapperConfiguration config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapping());
             });
-            _mapper = new Mapper(config);
+            _mapperMock = new Mapper(config);
+            _miniBusController = new MiniBusController(_miniBusServiceMock.Object, _optionsMock.Object, _loggerMock.Object, _mapperMock);
         }
 
 
@@ -44,12 +47,8 @@ namespace MiniBusManagement.Api.Tests.Administration
                 new MiniBus { Id = 2, Company = company, Capacity = 20, Brand = "Isuzu" }
             };
 
-
-            var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMinibus("Roberto", It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
-
-            var actionResult = await controller.GetMiniBuses();
+            _miniBusServiceMock.Setup(c => c.GetMinibus("Roberto", It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
+            var actionResult = await _miniBusController.GetMiniBuses();
             Assert.NotNull(actionResult);
             var result = actionResult.Result;
             Assert.NotNull(result);
@@ -108,15 +107,11 @@ namespace MiniBusManagement.Api.Tests.Administration
 
 
             int miniBusId = 1;
-            var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(new MiniBus
+            _miniBusServiceMock.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(new MiniBus
             {
                 Id=1, CompanyId=1, Capacity=20,Brand="pruba"
             });
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, loggerMock.Object, _mapper);
-
-            var actionResult = await controller.GetMiniBus(miniBusId);
-
+            var actionResult = await _miniBusController.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is ObjectResult || actionResult is StatusCodeResult);
             if (actionResult is StatusCodeResult)
@@ -150,11 +145,8 @@ namespace MiniBusManagement.Api.Tests.Administration
 
             var document = new Mock<MiniBus>();
             int miniBusId = 1;
-
-            var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(miniBusId, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document.Object);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
-            var actionResult = await controller.GetMiniBus(miniBusId);
+            _miniBusServiceMock.Setup(c => c.GetMiniBusByID(miniBusId, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document.Object);
+            var actionResult = await _miniBusController.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is ObjectResult || actionResult is StatusCodeResult);
             if (actionResult is StatusCodeResult)
@@ -190,10 +182,8 @@ namespace MiniBusManagement.Api.Tests.Administration
             };
 
             int miniBusId = 0;
-            var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
-            var actionResult = await controller.GetMiniBus(miniBusId);
+            _miniBusServiceMock.Setup(c => c.GetMiniBusByID(document.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
+            var actionResult = await _miniBusController.GetMiniBus(miniBusId);
             Assert.NotNull(actionResult);
             Assert.True(actionResult is BadRequestObjectResult);
             var actualResult = actionResult as BadRequestObjectResult;
@@ -219,13 +209,9 @@ namespace MiniBusManagement.Api.Tests.Administration
                 Capacity = 20,
                 Brand = "Toyota",
             };
-
-
-            var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 204;
-            mockMiniBusService.Setup(c => c.DeleteMinibus(miniBusInsertar.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
-            var actionResult = await controller.DeleteMiniBus(miniBusInsertar.Id);
+            _miniBusServiceMock.Setup(c => c.DeleteMinibus(miniBusInsertar.Id, "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
+            var actionResult = await _miniBusController.DeleteMiniBus(miniBusInsertar.Id);
             Assert.NotNull(actionResult);
             var actualResult = actionResult as StatusCodeResult;
             Assert.NotNull(actualResult);
@@ -258,11 +244,9 @@ namespace MiniBusManagement.Api.Tests.Administration
                 UserModifies = "Roberto"
             };
 
-            var mockMiniBusService = new Mock<IMiniBusService>();
             int response = 201;
-            mockMiniBusService.Setup(c => c.InsertMinibus(It.IsAny<MiniBus>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, _logger.Object, _mapper);
-            var actionResult = await controller.InsertMiniBus(miniBusDTOInsertar);
+            _miniBusServiceMock.Setup(c => c.InsertMinibus(It.IsAny<MiniBus>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(response);
+            var actionResult = await _miniBusController.InsertMiniBus(miniBusDTOInsertar);
             Assert.NotNull(actionResult);
             var actualResult = actionResult as StatusCodeResult;
             Assert.True(actualResult is not null);
