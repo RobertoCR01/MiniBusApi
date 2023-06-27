@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MiniBusManagement.Api;
+﻿using Microsoft.AspNetCore.Mvc;
 using MiniBusManagement.Api.Controllers.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
@@ -88,7 +84,7 @@ namespace MiniBusManagement.Api.Tests.Administration
             var document = new MiniBus
             {
                 Id = 1,
-                Company = company,
+                CompanyId = 1,
                 Capacity = 20,
                 Brand = "Toyota",
             };
@@ -109,9 +105,13 @@ namespace MiniBusManagement.Api.Tests.Administration
 
 
             int miniBusId = 1;
-            var mockMiniBusService = new Mock<IMiniBusService>();
-            mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(document);
-            var controller = new MiniBusController(mockMiniBusService.Object, _options.Object, loggerMock.Object, _mapper);
+            mockMiniBusService = new Mock<IMiniBusService>();
+            mockMiniBusService.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(new MiniBus
+            {
+                Id=1, CompanyId=1, Capacity=20,Brand="pruba"
+            });
+            var controller = new MiniBusController(mockMiniBusService.Object);
+
             var actionResult = await controller.GetMiniBus(miniBusId);
 
             Assert.NotNull(actionResult);
