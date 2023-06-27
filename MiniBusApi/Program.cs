@@ -5,8 +5,10 @@ using MiniBusManagement.Data.Repositories;
 using MiniBusManagement.Data.Repositories.Administration;
 
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 // Add services to the container.
 
@@ -39,7 +41,7 @@ builder.Services.Configure<HaciendaOptions>(
 
 // Configuracion ApplicationInsights
 
-builder.Services.AddApplicationInsightsTelemetry();
+//builder.Services.AddApplicationInsightsTelemetry();
 
 var app = builder.Build();
 // Services
