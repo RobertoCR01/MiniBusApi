@@ -24,11 +24,12 @@ namespace MiniBusManagement.Api.Tests.Administration
             _miniBusServiceMock = new Mock<IMiniBusService>();
             _optionsMock = new Mock<IOptionsMonitor<HaciendaOptions>>();
             _loggerMock = new Mock<ILogger<MiniBusController>>();
-            MapperConfiguration config = new MapperConfiguration(cfg =>
+
+            var configuration = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new AutoMapping());
+                cfg.AddProfile<AutoMapping>();
             });
-            _mapperMock = new Mapper(config);
+            _mapperMock = configuration.CreateMapper();
             _miniBusController = new MiniBusController(_miniBusServiceMock.Object, _optionsMock.Object, _loggerMock.Object, _mapperMock);
         }
 
@@ -93,18 +94,6 @@ namespace MiniBusManagement.Api.Tests.Administration
 
             var loggerMock = new Mock<ILogger<MiniBusController>>();
             var logMessages = new List<string>();
-
-            loggerMock.Setup(x => x.Log(
-                It.IsAny<LogLevel>(),
-                It.IsAny<EventId>(),
-                It.IsAny<object>(),
-                It.IsAny<Exception>(),
-                It.IsAny<Func<object, Exception, string>>()
-            )).Callback((LogLevel level, EventId eventId, object state, Exception exception, Func<object, Exception, string> formatter) => {
-                logMessages.Add(formatter(state, exception));
-                Console.WriteLine($"Log message added: {formatter(state, exception)}");
-            });
-
 
             int miniBusId = 1;
             _miniBusServiceMock.Setup(c => c.GetMiniBusByID(It.IsAny<int>(), "Roberto", It.IsAny<DateTime>())).ReturnsAsync(new MiniBus
