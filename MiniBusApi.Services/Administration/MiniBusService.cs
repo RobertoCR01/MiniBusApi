@@ -17,10 +17,12 @@ namespace MiniBusManagement.Services.Administration
         public MiniBusService()
         {        
         }
+        
         public MiniBusService(IMiniBusRepository miniBusRepository)
         {
             _miniBusRepository = miniBusRepository;
         }
+        
         public async Task<int> DeleteMinibus(int minibusID, string loggedUser, DateTime currentDate)
         {
             try
@@ -32,16 +34,19 @@ namespace MiniBusManagement.Services.Administration
                 return 500;
             }
         }
+        
         public async Task<IEnumerable<MiniBus>> GetMinibus(string loggedUser, DateTime currentDate)
         {
             var minibuses = await _miniBusRepository.GetMinibus();
             return minibuses;
         }
+        
         public async Task<MiniBus> GetMiniBusByID(int minibusID, string loggedUser, DateTime currentDate)
         {
             MiniBus minibus = await _miniBusRepository.GetMinibusByID(minibusID);
             return minibus;
         }
+        
         public async Task<int> InsertMinibus(MiniBus minibusProcesar, string loggedUser, DateTime currentDate)
         {
             minibusProcesar.InsertionDate = currentDate;
@@ -51,6 +56,7 @@ namespace MiniBusManagement.Services.Administration
             int result = await _miniBusRepository.InsertMinibus(minibusProcesar);
             return result;
         }
+        
         public async Task<int> UpdateMinibus(int minibusID, MiniBus minibusUpdated, string loggedUser, DateTime currentDate)
         {
             try

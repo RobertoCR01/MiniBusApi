@@ -12,8 +12,10 @@ namespace MiniBusManagement.Api.Controllers.Administration
     [ApiController]
     public class MiniBusController : ControllerBase
     {
+        // TODO: REmove comment, this is almost a constant
+        public static readonly string User = Environment.UserName;
+        
         private readonly IMiniBusService _miniBusService;
-        private readonly string _user = Environment.UserName;
         private readonly DateTime _date = DateTime.Now;
         private readonly IMapper _mapper;
         private readonly IOptionsMonitor<HaciendaOptions> _options;
@@ -45,7 +47,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     return BadRequest("invalid id");
                 };
 
-                MiniBus minibus = await _miniBusService.GetMiniBusByID(id, _user, _date);
+                MiniBus minibus = await _miniBusService.GetMiniBusByID(id, User, _date);
                 _logger.LogError("Prueba");
                 _logger.LogInformation("Varios", minibus.Id);
                 MiniBusDTO minibusDTO = _mapper.Map<MiniBusDTO>(minibus);
@@ -91,7 +93,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
 
                 MiniBus minibus = _mapper.Map<MiniBus>(minibusProcesar);
 
-                int result = await _miniBusService.InsertMinibus(minibus, _user, _date);
+                int result = await _miniBusService.InsertMinibus(minibus, User, _date);
                 if (result == 201)
                 {
                     return StatusCode(StatusCodes.Status201Created);
@@ -115,7 +117,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         {
             try
             {
-                int result = await _miniBusService.DeleteMinibus(minibusID, _user, _date);
+                int result = await _miniBusService.DeleteMinibus(minibusID, User, _date);
                 return result switch
                 {
                     204 => NoContent(),
@@ -137,7 +139,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
         {
             try
             {
-                var minibuses = await _miniBusService.GetMinibus(_user, _date);
+                var minibuses = await _miniBusService.GetMinibus(User, _date);
                 return Ok(minibuses);
             }
             catch (Exception)
@@ -166,7 +168,7 @@ namespace MiniBusManagement.Api.Controllers.Administration
                     return Conflict("Different Ids");
                 }
                 MiniBus minibus = _mapper.Map<MiniBus>(miniBusProcesar);
-                int result = await _miniBusService.UpdateMinibus(id, minibus, _user, _date);
+                int result = await _miniBusService.UpdateMinibus(id, minibus, User, _date);
                 return result switch
                 {
                     204 => NoContent(),
