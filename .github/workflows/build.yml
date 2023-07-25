@@ -36,3 +36,14 @@ jobs:
         path: TestResults-${{ env.DOTNET_VERSION }}
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
+        base: main
+        head: RobertoNZ/MiniBusApi
+        title: Automatic Pull Request
+        body: |
+          This pull request was automatically created by GitHub Actions.
