@@ -41,7 +41,8 @@ jobs:
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+        branch: main
+        base: main
         title: Automatic Pull Request
         body: |
           This pull request was automatically created by GitHub Actions.
