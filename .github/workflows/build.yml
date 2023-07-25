@@ -36,3 +36,12 @@ jobs:
         path: TestResults-${{ env.DOTNET_VERSION }}
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
+
+    - name: Create Pull Request
+      uses: mhristof/gh-action-auto-approve-pull-request@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
+        title: Automatic Pull Request
+        body: |
+          This pull request was automatically created by GitHub Actions.
