@@ -43,6 +43,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
         base: main
+        head: RobertoNZ/MiniBusApi
         title: Automatic Pull Request
         body: |
           This pull request was automatically created by GitHub Actions.
