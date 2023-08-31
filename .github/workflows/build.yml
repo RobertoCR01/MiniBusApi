@@ -4,7 +4,7 @@ name: Build & Test
 on:
   pull_request:
     branches:
-      - 'dv-*'
+      - 'master'
 
 env:
   DOTNET_VERSION: '7.0.x' # The .NET SDK version to users
