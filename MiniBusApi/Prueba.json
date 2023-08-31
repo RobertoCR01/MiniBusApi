@@ -9,7 +9,7 @@
     "AllowedHosts": "*",
     "AllowedHosts02": "*test",
     "ConnectionStrings": {
-      "DefaultSQLConnection": "Server = .; Database = MiniBusAPI; user id=sa; password= Rd22492552; TrustServerCertificate = True; MultipleActiveResultSets=True"
+      "DefaultSQLConnection": "Server = tcp:www.dyssoftware.com,1433; Database = MiniBusAPI; user id=rdiaza; password= Rd22492552; TrustServerCertificate = True; MultipleActiveResultSets=True"
     }
   }
 }

@@ -6,25 +6,28 @@ using MiniBusManagement.Api.Controllers.Administration;
 using MiniBusManagement.Api.Models.Administration;
 using MiniBusManagement.Domain.Models.Administration;
 using MiniBusManagement.Services.Administration;
-using Moq;
 using Xunit;
+using NSubstitute;
+using Castle.Core.Resource;
 
 namespace MiniBusManagement.Api.Tests.Administration
 {
     public class MiniBusControllerTest
     {
-        private readonly Mock<IOptionsMonitor<HaciendaOptions>> _optionsMock;
-        private readonly Mock<ILogger<MiniBusController>> _loggerMock;
+        
+        private readonly IOptionsMonitor<HaciendaOptions> _optionsMock;
+        private readonly ILogger<MiniBusController> _loggerMock;
         private readonly ILogger<MiniBusController> _logger;
+        // Quitar logger duplicado
         private readonly IMapper _mapper;
-        private readonly Mock<IMiniBusService> _miniBusServiceMock;
+        private readonly IMiniBusService _miniBusServiceMock;
         private readonly MiniBusController _miniBusController;
 
         public MiniBusControllerTest()
         {
-            _miniBusServiceMock = new Mock<IMiniBusService>();
-            _optionsMock = new Mock<IOptionsMonitor<HaciendaOptions>>();
-            _loggerMock = new Mock<ILogger<MiniBusController>>();
+            _miniBusServiceMock = Substitute.For<IMiniBusService>();
+            _optionsMock = Substitute.For<IOptionsMonitor<HaciendaOptions>>();
+            _loggerMock = Substitute.For<ILogger<MiniBusController>>();
             
             using var logFactory = LoggerFactory.Create(builder => builder.AddConsole());
             _logger = logFactory.CreateLogger<MiniBusController>();
@@ -34,7 +37,7 @@ namespace MiniBusManagement.Api.Tests.Administration
                 cfg.AddProfile<AutoMapping>();
             });
             _mapper = configuration.CreateMapper();
-            _miniBusController = new MiniBusController(_miniBusServiceMock.Object, _optionsMock.Object, _loggerMock.Object, _mapper);
+            _miniBusController = new MiniBusController(_miniBusServiceMock, _optionsMock, _loggerMock, _mapper);
         }
 
 
@@ -54,10 +57,10 @@ namespace MiniBusManagement.Api.Tests.Administration
                 new MiniBus { Id = 2, Company = company, Capacity = 20, Brand = "Isuzu" }
             };
 
-            var serviceMock = new Mock<IMiniBusService>();
-            serviceMock.Setup(c => c.GetMinibus(MiniBusController.User, It.IsAny<DateTime>())).ReturnsAsync(miniBusList);
+            var serviceMock = Substitute.For<IMiniBusService>();
+            serviceMock.GetMinibus(MiniBusController.User, Arg.Any<DateTime>()).Returns(miniBusList);
 
-            var controller = new MiniBusController(serviceMock.Object, _optionsMock.Object, _logger, _mapper);
+            var controller = new MiniBusController(serviceMock, _optionsMock, _logger, _mapper);
             var actionResult = await controller.GetMiniBuses();
             
             Assert.NotNull(actionResult);
